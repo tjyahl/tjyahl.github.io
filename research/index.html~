@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+
+<!-- HEAD -->
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+<title>Research</title>
+<link rel="icon" href="../favicon.ico">
+
+<!-- CSS -->
+<style>
+html, body {
+margin:0; 
+height:100%;
+}
+
+div {
+border:0px solid red;
+}
+
+div.header {
+position:relative;
+width:device-width;
+height:auto;
+}
+
+img.header {
+width:100%;
+height:auto;
+}
+
+div.headercover {
+margin:0;
+height:100%;
+width:100%;
+position:absolute;
+top:0;
+left:0;
+background-color:rgba(0,0,0,.3);
+}
+
+ul.navigation {
+list-style-type:none; 
+margin:0; 
+padding:0; 
+padding-left:.5cm; 
+overflow:hidden; 
+background-color:rgba(0,0,0,.4);
+}
+
+li.navigation {
+float:left;
+}
+
+li a.navigation {
+display:block; 
+color:white; 
+text-align:center; 
+padding:16px; 
+text-decoration:none; 
+font-family:Verdana, Geneva, sans-serif;
+font-weight:bold;
+}
+
+li a.navigation:hover {
+background-color:rgba(0,0,0,.45);
+}
+
+hr.gold {
+width:device-width;
+height:6%;
+background-color:rgba(212,175,55,1);
+border:none;
+position:relative;
+top:-.4cm;
+}
+
+p.info {
+text-align:center;
+margin-top:10%;
+color:white;
+font-family:Verdana, Geneva, sans-serif;
+font-weight:bold;
+}
+
+</style>
+
+</head>
+
+
+
+<!-- BODY -->
+<body>
+<!-- HEADING -->
+<div class="header">
+  <img class="header" src="../hex.png">
+  <div class="headercover">
+    <ul class="navigation">
+      <li class="navigation"><a class="navigation" href="../index.html">Home</a></li>
+      <li class="navigation"><a class="navigation" href="index.html">Research</a></li>
+      <li class="navigation"><a class="navigation" href="../teaching/index.html">Teaching</a></li>
+      <li class="navigation"><a class="navigation" href="../misc/index.html">Miscellaneous</a></li>
+    </ul>
+    <p class="info">
+      <font size="7">Research</font>
+    </p>
+  </div>
+</div>
+<hr class="gold">
+<!-- BODY -->
+<div>
+<p style="font-family:Verdana, Geneva, sans-serif; padding-left:2.5cm; padding-right:2.5cm; padding-top:1.5cm; text-align:center">
+My research interests lie in computational aspects of algebraic geometry. In particular, numerical and symbolic computation of Galois groups arising in enumerative problems are of interest. 
+</p>
+<ul style="padding-left:30%; font-family:Verdana, Geneva, sans-serif; padding-bottom:3cm;">
+  <li><a href="https://arxiv.org/abs/2001.04228">Solving Decomposable Sparse Polynomial Systems</a>. Jan 2020.</li>
+  <ul>
+    <li><a href="DSS/DSSsite.html">DecomposableSparseSystems.m2</a>.</li>
+  </ul>
+</ul>
+</div>
+
+</body>

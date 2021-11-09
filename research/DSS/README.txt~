@@ -1,0 +1,18 @@
+DecomposableSparseSystems.m2 README
+
+This software is used to numerically compute solutions to sparse polynomial systems in Macaulay2. 
+The following commands are included in the package:
+
+systemData()
+generateSystem()
+minimalSubsystem()
+triangularReduction()
+latticeIndex()
+latticeReduction()
+solveDecomposableSystem()
+solveInstance()
+
+To view documentation in a Macaulay2 session for a specific method, please use the command "help *METHOD*". 
+Otherwise, use "viewHelp DecomposableSparseSystems" to view the online documentation for the package.
+
+

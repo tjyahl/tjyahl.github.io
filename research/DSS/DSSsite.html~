@@ -1,0 +1,400 @@
+<!document html>
+<html lang="en">
+
+
+
+<!--HEAD-->
+<head>
+
+
+
+<title>Decomposable Sparse Systems</title>
+<link rel="icon" href="">
+
+<style>
+html, body {
+margin:0;
+height:100%;
+}
+
+div.author {
+float:left;
+text-align:center;
+width:21%;
+margin:2%;
+}
+
+div.block {
+display:inline-block;
+width:100%;
+text-align:center;
+padding-top:40px;
+padding-bottom:40px;
+}
+
+hr.bar {
+width:device-width;
+height:10px;
+border:none;
+background-color:blue;
+}
+
+
+</style>
+<head>
+
+
+<!--BODY-->
+<body>
+<div style="width:100%; text-align:center; float:top; display:inline-block; padding-bottom:40px;">
+  <div class="block" style="float:left; width:20%; padding-bottom:0;">
+    <img src="3DSupport_big.png" alt="Image Missing!" style="width:100%; height:auto;">
+  </div>
+  <div class="block" style="float:left; width:80%;">
+    <div style="float:top; width:100%; text-align:center; padding-bottom:4%;">
+      <font size="6">Software for Decomposable Sparse Polynomial Systems</font>
+    </div>
+    <div class="author">
+      <a href="https://sites.google.com/view/taylorbrysiewicz">Taylor Brysiewicz</a>
+      <br>
+      <a href="mailto:tbrysiewicz@math.tamu.edu">Tbrysiewicz@math.tamu.edu</a>
+    </div>
+    <div class="author">
+      <a href="https://urldefense.proofpoint.com/v2/url?u=https-3A__www.math.wisc.edu_-7Ejose_&d=DwIGaQ&c=u6LDEWzohnDQ01ySGnxMzg&r=3Uy9a7XCUulzvjs4e3Uqt_rGWIGjd8jlvW7G0MCFtCk&m=zjNzT4h4WTO3uPLtaWC_hYD0NW9KDhkb57nxFGpn_fI&s=R34lFNRTtXl3bsC3Mm0Z3u2_6cDP8bDubi8UX-7bbTQ&e=">Jose Rodriguez</a>
+      <br>
+      <a href="mailto:jrodriguez@wisc.edu">Jrodriguez@wisc.edu</a>
+    </div>
+    <div class="author">
+      <a href="https://www.math.tamu.edu/~sottile">Frank Sottile</a>
+      <br>
+      <a href="mailto:sottile@math.tamu.edu">Sottile@math.tamu.edu</a>
+    </div>
+    <div class="author">
+      <a href="https://www.math.tamu.edu/~thomasjyahl">Thomas Yahl</a>
+      <br>
+      <a href="mailto:thomasjyahl@math.tamu.edu">Thomasjyahl@math.tamu.edu</a>
+    </div>
+    <p style="padding-top:8%;">
+      <img src="pdf.gif" alt="Picture Missing" style="vertical-align:middle"><a href="BRSY.pdf">Solving Decomposable Sparse Systems</a>
+      &nbsp; &nbsp; &nbsp;
+      <a href="DecomposableSparseSystems.m2" download>DecomposableSparseSystems.m2</a>
+    </p>
+  </div>
+</div>
+<hr class="bar">
+<div class="block">
+  <div style="float:top; width:100%; text-align:center; padding-bottom:2%;">
+    <font size="6">About</font>
+  </div>
+  <p style="margin-left:10%; margin-right:10%;"> 
+      A sparse polynomial system is decomposable if its associated branched covers factors as a composition of nontrivial branched covers on an open set. Solutions to such systems can be computed by iteratively factoring these branched covers and computing their fibres. These fibres can be computed as solutions to simpler sparse polynomial systems. 
+      <br>
+      <br>
+      We describe this technique of solving sparse polynomial systems explicitly in our paper <i>Solving Decomposable Sparse Systems</i>. We have implemented this method in the Macaulay2 package provided below. 
+  </p>
+  <br>
+  <p>
+    <img src="pdf.gif" alt="Picture Missing" style="vertical-align:middle"><a href="BRSY.pdf">Solving Decomposable Sparse Systems</a>
+    &nbsp; &nbsp; &nbsp;
+    <a href="DecomposableSparseSystems.m2" download>DecomposableSparseSystems.m2</a>
+  </p>
+  <br>
+  <br>
+  <a href="README.txt" download>README.txt</a>
+</div>
+<hr class="bar">
+<div class="block">
+  <div style="float:top; width:100%; text-align:center; padding-bottom:2%;">
+    <font size="6">Example</font>
+  </div>
+  <p style="margin-left:12%; margin-right:12%; text-align:left">
+    For a system of polynomial equations 
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <mrow>
+	F<mo>=</mo><mo>(</mo>F<sub>1</sub>,..,F<sub>n</sub><mo>)</mo>,
+      </mrow>
+    </math>
+    the support of 
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      F
+    </math>
+    is the collection of 
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      n
+    </math>
+    integer matrices whose columns are the exponent vectors appearing in each polynomial
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      F<sub>i</sub>.
+    </math>
+    Let
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <mrow>
+	<mi>A<sub>1</sub></mi>
+	<mo>=</mo>
+	<mo>(</mo>
+	  <mtable>
+	    <mtr>
+	      <mtd>0</mtd>
+	      <mtd>1</mtd>
+	      <mtd>2</mtd>
+	      <mtd>0</mtd>
+	      <mtd>1</mtd>
+	    </mtr>
+	    <mtr>
+	      <mtd>0</mtd>
+	      <mtd>0</mtd>
+	      <mtd>0</mtd>
+	      <mtd>1</mtd>
+	      <mtd>1</mtd>
+	    </mtr>
+	  </mtable>
+	<mo>)</mo>
+      </mrow>
+    </math>,
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <mrow>
+	<mi>A<sub>2</sub></mi>
+	<mo>=</mo>
+	<mo>(</mo>
+	  <mtable>
+	    <mtr>
+	      <mtd>1</mtd>
+	      <mtd>0</mtd>
+	      <mtd>1</mtd>
+	      <mtd>2</mtd>
+	      <mtd>1</mtd>
+	    </mtr>
+	    <mtr>
+	      <mtd>0</mtd>
+	      <mtd>1</mtd>
+	      <mtd>1</mtd>
+	      <mtd>1</mtd>
+	      <mtd>2</mtd>
+	    </mtr>
+	  </mtable>
+	<mo>)</mo>
+      </mrow>
+    </math>,
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <mrow>
+	<mi>B<sub>1</sub></mi>
+	<mo>=</mo>
+	<mo>(</mo>
+	<mtable>
+	  <mtr>
+	    <mtd>0</mtd>
+	    <mtd>2</mtd>
+	    <mtd>0</mtd>
+	    <mtd>2</mtd>
+	  </mtr>
+	  <mtr>
+	    <mtd>0</mtd>
+	    <mtd>0</mtd>
+	    <mtd>1</mtd>
+	    <mtd>3</mtd>
+	  </mtr>
+	</mtable>
+	<mo>)</mo>
+      </mrow>
+    </math>,
+    and 
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <mrow>
+	<mi>B<sub>2</sub></mi>
+	<mo>=</mo>
+	<mo>(</mo>
+	<mtable>
+	  <mtr>
+	    <mtd>0</mtd>
+	    <mtd>1</mtd>
+	    <mtd>2</mtd>
+	    <mtd>0</mtd>
+	    <mtd>2</mtd>
+	    <mtd>0</mtd>
+	  </mtr>
+	  <mtr>
+	    <mtd>0</mtd>
+	    <mtd>0</mtd>
+	    <mtd>0</mtd>
+	    <mtd>1</mtd>
+	    <mtd>1</mtd>
+	    <mtd>2</mtd>
+	  </mtr>
+	</mtable>
+	<mo>)</mo>.
+      </mrow>
+    </math>
+    We consider the columns of these matrices as exponent vectors in this way and display their convex hulls below. 
+  </p>
+  <div class="block">
+    <div style="padding-left:10%; float:left; width:20%;">
+      <img src="calA1_big.png" alt="Missing Image" style="width:100%; height:auto">
+    </div>
+    <div style="float:left; width:20%;">
+      <img src="calA2_big.png" alt="Missing Image" style="width:100%; height:auto">
+    </div>
+    <div style="float:left; width:20%;">
+      <img src="calB1_big.png" alt="Missing Image" style="width:100%; height:auto">
+    </div>
+    <div style="float:left; width:20%; padding-right:10%;">
+      <img src="calB2_big.png" alt="Missing Image" style="width:100%; height:auto">
+    </div>
+  </div>
+  <p style="margin-left:12%; margin-right:12%; text-align:left">
+    Let 
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <mi>C</mi>
+      <mo>=</mo>
+      <mo>{</mo>
+	0,1
+      <mo>}</mo>
+      <sup>5</sup>
+    </math> 
+    be the vertices of the five-dimensional cube. We construct sparse decomposable systems from 
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <mi>A<sub>&#8226</sub></mi>
+      <mo>=</mo>
+      <mo>(</mo>
+	<mi>A<sub>1</sub></mi>,
+	<mi>A<sub>2</sub></mi>
+      <mo>)</mo>
+    </math>
+    , 
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <mi>B<sub>&#8226</sub></mi>
+      <mo>=</mo>
+      <mo>(</mo>
+	<mi>B<sub>1</sub></mi>,
+	<mi>B<sub>2</sub></mi>
+      <mo>)</mo>
+    </math>,
+    and 
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <mi>C</mi>
+    </math>
+    as follows. Choose two embeddings 
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <mathrow>
+	&#x1D4BE: <mi>&Zopf;<sup>2</sup></mi> &#x02192  <mi>&Zopf;<sup>5</sup></mi>
+      </mathrow>
+    </math>
+    and 
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <mathrow>
+	&#x1D4BF: <mi>&Zopf;<sup>2</sup></mi> &#x02192 <mi>&Zopf;<sup>5</sup></mi>
+      </mathrow>
+    </math>
+    such that
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      &#x1D4BE
+      <mo>(</mo><mi>&Zopf;<sup>2</sup></mi><mo>)</mo>
+      &InvisibleTimes; &#x022C2
+      &#x1D4BF
+      <mo>(</mo><mi>&Zopf;<sup>2</sup></mi><mo>)</mo>
+      <mo>=</mo>
+      <mo>{</mo>0<mo>}</mo>.
+    </math>
+    For example, choose four linearly independent vectors 
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <mi>i<sub>1</sub></mi>,
+      <mi>i<sub>2</sub></mi>,
+      <mi>j<sub>1</sub></mi>,
+      <mi>j<sub>2</sub></mi>
+    </math>
+    and define 
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      &#x1D4BE
+      <mo>(</mo><mi>a</mi>&InvisibleTimes;,&InvisibleTimes;<mi>b</mi><mo>)</mo>
+      <mo>=</mo>
+      <mi>a</mi>&InvisibleTimes;<mi>i<sub>1</sub></mi><mo>+</mo><mi>b</mi>&InvisibleTimes;<mi>i<sub>2</sub></mi>
+    </math>
+    and the same for 
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      &#x1D4BF.
+    </math>
+    These embeddings correspond to monomial maps. For example, the embedding corresonponding to the vectors 
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <mi>i<sub>1</sub></mi><mo>=</mo><mo>(</mo>1,2<mo>)</mo><sup>T</sup>
+    </math>
+    and 
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <mi>i<sub>2</sub></mi><mo>=</mo><mo>(</mo>0,3<mo>)</mo><sup>T</sup>
+    </math>
+    corresponds to the monomial map on
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <mo>(</mo>&#x2102;<sup>&times;</sup><mo>)</mo><sup>2</sup>
+    </math>
+    sending 
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <mi>x<sub>1</sub></mi> &#x02192 <mi>x<sub>1</sub></mi><mi>x<sub>2</sub><sup>2</sup></mi>
+    </math>
+    and
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <mi>x<sub>2</sub></mi> &#x02192 <mi>x<sub>2</sub><sup>3</sup></mi>.
+    </math>
+    For any matrix 
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      A,
+    </math>
+    the image 
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      &#x1D4BE <mo>(</mo>A<sub>1</sub><mo>)</mo>
+    </math>
+    is the set of exponent vectors that appear by precomposing a polynomial supported on 
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      A
+    </math>
+    with the monomial map associated to 
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      &#x1D4BE.
+    </math>
+    Set
+  </p>
+  <div>
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <mi>A</mi>
+      <mo>(</mo><mi>&#x1D4BE</mi>&InvisibleTimes;,&InvisibleTimes;<mi>&#x1D4BF</mi><mo>)</mo>
+      <mo>=</mo>
+      <mo>(</mo>
+	<mi>&#x1D4BE<mo>(</mo><mi>A<sub>1</sub></mi><mo>)</mo></mi>,
+	<mi>&#x1D4BE<mo>(</mo><mi>A<sub>2</sub></mi><mo>)</mo></mi>,
+	<mi>&#x1D4BF<mo>(</mo><mi>B<sub>1</sub></mi><mo>)</mo></mi>,
+	<mi>&#x1D4BF<mo>(</mo><mi>B<sub>2</sub></mi><mo>)</mo></mi>,
+	<mi>C</mi>
+      <mo>)</mo>.
+    </math>
+  </div>
+  <p style="margin-left:12%; margin-right:12%; text-align:left">
+    Any sparse system with support 
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <mi>A</mi><mo>(</mo><mi>&#x1D4BE</mi>&InvisibleTimes;,&InvisibleTimes;<mi>&#x1D4BF</mi><mo>)</mo>
+    </math>
+    is decomposable and can be efficiently solved with the Macaulay2 software above via the command <font style="font-family: Bitstream Vera Sans Mono;">solveDecomposableSystem</font>. If the equations are in a list <font style="font-family: Bitstream Vera Sans Mono;">F</font>, the command <font style="font-family: Bitstream Vera Sans Mono;">solveDecomposableSystem(F)</font> will compute a list of solutions to <font style="font-family: Bitstream Vera Sans Mono;">F</font>. 
+  </p>
+  <div>
+    <a href="Example.m2" download>Example.m2</a>
+  </div>
+</div>
+<hr class="bar">
+<div class="block">
+  <div style="float:top; width:100%; text-align:center; padding-bottom:4%;">
+    <font size="6">Timing</font>
+  </div>
+  <div style="float:left; width:50%; text-align:center;">
+    <p style="margin-left:15%; margin-right:15%; margin-top:8%; text-align:left">
+      The example above was used to compare timings of our software against PHCPack [REFERENCE?]. Solutions to 10962 instances of such sparse systems for various choices of 
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+	&#x1D4BE
+      </math>
+      and 
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+	&#x1D4BF
+      </math>
+      were computed with both softwares and timings were recorded against the total number of solutions to each instance. A comparison of the timings are reported in the figure to the right. 
+    </p>
+  </div>
+  <div style="float:left; width:46%; padding-right:4%;">
+    <img src="scatter2.png" alt="Image Missing!" style="width:100%; height:auto;">
+  </div>
+</div>
+<body>

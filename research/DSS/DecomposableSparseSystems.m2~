@@ -1,0 +1,838 @@
+newPackage(
+    "DecomposableSparseSystems",
+    Version=>"0.0.3",
+    Date=>"Apr 11, 2019",
+    Authors=> {
+        {Name=>"Taylor Brysiewicz",
+	 Email=>"tbrysiewicz@math.tamu.edu",
+	 HomePage=>"https://sites.google.com/view/taylorbrysiewicz"},
+        {Name=>"Jose Rodriguez",
+	 Email=>"jrodriguez@wisc.edu",
+	 HomePage=>"https://urldefense.proofpoint.com/v2/url?u=https-3A__www.math.wisc.edu_-7Ejose_&d=DwIGaQ&c=u6LDEWzohnDQ01ySGnxMzg&r=3Uy9a7XCUulzvjs4e3Uqt_rGWIGjd8jlvW7G0MCFtCk&m=zjNzT4h4WTO3uPLtaWC_hYD0NW9KDhkb57nxFGpn_fI&s=R34lFNRTtXl3bsC3Mm0Z3u2_6cDP8bDubi8UX-7bbTQ&e="},
+        {Name=>"Frank Sottile",
+	 Email=>"sottile@math.tamu.edu",
+	 HomePage=>"https://www.math.tamu.edu/~sottile"},
+        {Name=>"Thomas Yahl",
+	 Email=>"thomasjyahl@math.tamu.edu",
+	 HomePage=>"https://math.tamu.edu/~thomasjyahl"}
+        },
+    Headline=>"Solving decomposable sparse systems",
+    PackageImports=>{"PHCpack","Polyhedra","DeterminantalRepresentations"},
+    PackageExports=>{"NumericalAlgebraicGeometry"},
+    DebuggingMode=>true
+    )
+
+export{
+    --User Functions
+    "minimalSubsystem",
+    "triangularReduction",
+    "latticeIndex",
+    "latticeReduction",
+    "generateSystem",
+    "systemData",
+    "solveDecomposableSystem",
+    "solveInstance",
+    "isDegenerateSystem",
+    --User Options
+    "Tol",
+    "CheckMixedVolume",
+    "VerbosityLevel",
+    "NAGSolver",
+    "LacunarySys",
+    "TriangularSys",
+    "Record",
+    "Level",
+    "CalledFrom"
+    }
+
+-----------------------------
+--                         --
+--    Utility Functions    --
+--                         --
+-----------------------------
+
+subsetsGr = method()
+subsetsGr (List,Number) := List => (L,n)->(
+    totalSubsets := flatten apply(toList(n .. #L),k->subsets(L,k));
+    return(totalSubsets)
+    )
+
+setDifference = method()
+setDifference (List,List) := List => (A,B)->(
+    L := select(A,x->not member(x,B));
+    return(L)
+    )
+
+latticeGens = method()
+latticeGens (Matrix) := Matrix => M->(
+    L := entries transpose M;
+    Gens := transpose matrix apply(L,v->v-first L);
+    return(Gens)
+    )
+
+latticeGens (List) := Matrix => L->(
+    L' := apply(L,M->latticeGens(M));
+    Gens := fold(L',(M,N)->M|N);
+    return(Gens)
+    )
+
+torusPts = method(Options => {Tol=>.00001})
+torusPts (List) := List => o->L->(
+    L' := select(L,v->min (v/abs) > o.Tol);
+    return(L')
+    )
+
+generateSystem = method(Options => {VerbosityLevel=>0})
+generateSystem (List,List) := List => o->(A,C)->(
+    --error handling
+    n := numgens target A#0;
+    if not (#A === #C and apply(A,M->numgens source M) === apply(C,c->#c) and all(A,M->numgens target M === n)) then (
+	error "generateSystem: Inconsistent number of equations, monomials, or coefficients"
+	);
+    if not (all(A,M->all(flatten entries M,a->a>=0))) then (
+	if (o.VerbosityLevel > 0) then (print("generateSystem: Shifting supports to positive orthant"));
+	A = apply(A,M->matrix apply(entries M,v->apply(v,z->z-min v)));
+	);
+    
+    x := symbol x;
+    R := CC[x_1..x_n];
+    F := apply(#A,i->sum(C#i,matrixPower(gens R,A#i),(c,m)->sub(c,CC)*m));
+    return(F)
+    )
+
+systemData = method()
+systemData (List) := Sequence => F->(
+    --error handling
+    ----This doesn't make sure that all elements of F lie in the SAME polynomial ring
+    if not (all(F,f->isPolynomialRing ring f)) then (
+	error "systemData: Expected a list of polynomials"
+	);
+    
+    A := F/(f->transpose matrix exponents f);
+    C := F/(f->flatten entries last coefficients f);
+    return(A,C)
+    )
+
+
+-----------------------------------
+--                               --
+--    Computational Functions    --
+--                               --
+-----------------------------------
+
+systemRank = method()
+systemRank (Matrix) := Number => M->(
+    return(rank latticeGens(M))
+    )
+
+systemRank (List) := Number => L->(
+    if (#L === 0) then return(0);
+    return(rank latticeGens(L))
+    )
+
+--Uses the columns of A to form monomials so that (x^A)^B = x^AB.
+matrixPower = method()
+matrixPower (List,Matrix) := List => (v,A)->(
+    L := apply(entries transpose A,r->product(v,r,(x,n)->x^n));
+    return(L)
+    )
+
+--Only used to solve binomials of the form x^A = v. Not exported for this reason.
+solveBinomials = method()
+solveBinomials (Matrix,List) := List => (A,v)->(
+    --error handling
+    if (det(A) === 0) then (
+	error "solveBinomials: Matrix not invertible"
+	);
+    
+    (D,P,Q) := smithNormalForm A;
+    v' := matrixPower(v,Q);
+    
+    --This is a bit dense.
+    rootsList := apply(toList(0 .. numgens source A - 1),i-> (v'#i)^(1/D_i_i)*apply(D_i_i,j->{exp(2*pi*ii*j/D_i_i)}));
+    L := fold(rootsList,(S,T)-> flatten table(S,T,(x,y)->x|y));
+    sols := L/(v->matrixPower(v,P));
+    return(sols)
+    )
+
+--F is the polynomial system, BottomFibs is the fiber over zero of the lower branched cover (corresponding to x_1,..,x_k), 
+----and firstTopFib is the fibre over the first element of BottomFibs (corresponding to x_(k+1),..,x_n).
+homotopyToFibres = method(Options => {VerbosityLevel=>0})
+homotopyToFibres (List,List,List) := List => o->(F,bottomFib,firstTopFib)->(
+    --error handling
+    try(ideal F) then (
+	R := ring ideal F; 
+	n := numgens R
+	) else (
+	error "homotopyToFibres: Expected polynomials of the same ring"
+	);
+    
+    if not (isPolynomialRing R and class coefficientRing R === ComplexField) then (
+	error "homotopyToFibres: Expected polynomials in complex polynomial ring"
+	);
+    
+    if not (#F === n) then (
+	error "homotopyToFibres: Expected a square system"
+	);
+    
+    r := #(bottomFib#0);
+    if (all(bottomFib,s->#s === r)) then (
+	S := first selectVariables(toList(r .. n-1),R)
+	) else (
+	error "homotopyToFibres: Elements of fibre not of same size"
+	);
+    
+    m := #(firstTopFib#0);
+    if not (all(firstTopFib,s->#s === m)) then (
+	error "homotopyToFibres: Elements of fibre not of same size"
+	);
+    
+    if not (r + m === n) then (
+	error "homotopyToFibres: Incorrect sizes of first top fibre"
+	);
+    
+    SystemsOverFibres := apply(#bottomFib,i->(
+	subs := apply(r,j->R_j=>(bottomFib_i)_j);
+	apply(toList(r .. n-1),i->sub(sub(F#i,subs),S))
+	));
+    
+    Solns := flatten apply(#bottomFib,i->
+	apply(track(first SystemsOverFibres,SystemsOverFibres#i,firstTopFib,gamma=>random(CC))/coordinates,s->bottomFib#i|s)
+	);
+    return(Solns)
+    )
+
+--Called only for systems that can't be decomposed
+basicSolver = method(Options => {VerbosityLevel=>0,NAGSolver=>PHCPACK,CheckMixedVolume=>false,Tol=>.00001,Record=>"",Level=>0})
+basicSolver (List) := List => o->F->(
+    --error handling
+    try(ideal F) then (
+	R := ring ideal F
+	) else (
+	error "basicSolver: Expected polynomials of the same ring"
+	);
+    if not (isPolynomialRing R and class coefficientRing R === ComplexField) then (
+	error "basicSolver: Expected polynomials in complex polynomial ring"
+	);
+    	Solns:={};
+    if (o.Record!="") then (
+	Recorder:=openOutAppend (currentDirectory()|o.Record);	
+	indenter:="";
+	indenter=(concatenate for i from 1 to o.Level list "    ");
+	--if it is a univariate polynomial system, solve using companion matrices
+	if numgens(R)==1 then(
+		Solns = solveUnivariate(F#0);
+		Recorder<<indenter<<"Solving above univariate polynomial using companion matrices"<<endl;
+		Solns = torusPts(Solns);
+		Recorder<<indenter<<"Found "<<toString(#Solns)<<" solutions"<<endl<<close;
+		return(Solns);
+	);
+	SOLVER:=o.NAGSolver;
+	Recorder<<indenter<<"Solving the above system using "<<toString(SOLVER)<<endl;
+	Recorder<<close;
+	) else (
+	Solns={};
+	if numgens(R)==1 then (
+	    Solns = solveUnivariate(F#0);
+	    Solns = torusPts(Solns);
+	    return(Solns)
+	    )
+	);
+    --Edit this to use monodromy to find missing roots
+    if (o.CheckMixedVolume) then (
+		V := Polyhedra$mixedVolume(apply(F,newtonPolytope));
+		for i from 1 to 10 do (
+			newTol :=o.Tol/10^(5*i);
+			print("New tolerance:"|toString( newTol));
+			AllSolns := NumericalAlgebraicGeometry$solveSystem(F,Software=>SOLVER)/coordinates;
+			print("F:"|toString(F));
+			print("Mixed Volume:"|toString(V));
+			print("Found:"|toString(#AllSolns));
+	    	Solns' := torusPts(AllSolns,Tol=>newTol);
+			print("Found in torus:"|toString(#Solns'));
+	    	if (#Solns' == V) then break Solns = Solns';
+	    	if (#Solns' > #Solns) then Solns = Solns'
+	    	);
+		if (#Solns != V) then(
+			Recorder=openOutAppend (currentDirectory()|o.Record);	
+			Recorder<<indenter<<"Couldn't Compute all solutions"<<endl<<close;			
+			print("basicSolver: Couldn't compute all solutions");
+			print(F);
+			return({});
+			);
+		) else (
+	    Solns = torusPts(NumericalAlgebraicGeometry$solveSystem(F,Software=>SOLVER)/coordinates,Tol=>o.Tol);
+		);    
+    if (o.VerbosityLevel > 0) then print("basicSolver: Computed " | toString(#Solns) | " solutions");
+	if (o.Record!="") then (
+	    Recorder=openOutAppend (currentDirectory()|o.Record);	
+	    Recorder<<indenter<<"Found "<<toString(#Solns)<<" solutions."<<endl<<close;	
+	    );
+    return(Solns)
+    )
+
+basicSolver (List,List) := List => o->(A,C)->(
+    if (max apply(flatten C,z->norm z) > 1e10 or max apply(flatten C,z->norm z) < 1e-10) then (
+	(C',S) := scaling(A,C);
+	FScaled := generateSystem(A,C');
+	solnsScaled := basicSolver(FScaled,o);
+	return(apply(solnsScaled,z->apply(#z,i->z#i*S#i)))
+	) else (
+        F := generateSystem(A,C);
+	return(basicSolver(F,o))
+    	)
+    )
+
+scaling = method()
+scaling (List,List) := Sequence => (A,C)->(
+    A' := apply(#A,k->transpose (matrix table(#A,numgens source A#k,(i,j)->if (i==k) then 1 else (0))||A#k));
+    M := sub(fold(A',(S,T)->S||T),RR);
+    b := -matrix apply(flatten C,z->{log(10,norm z)});
+    v := apply(flatten entries transpose solve(M,b,ClosestFit=>true,MaximalRank=>true),z->10^z);
+    C' := apply(#C,i->apply(C#i,matrixPower(v,transpose (A'#i)),(a,b)->a*b));
+    return(C',drop(v,#A))
+    )
+
+solveUnivariate = method()
+solveUnivariate (RingElement) := List => (f)->(
+	E:=eigenvalues companionMatrix(f);
+	E=toList(E);
+	E=apply(E,a->{a});
+	return(E)
+	)
+
+
+
+
+--------------------------
+--                      --
+--    Main Functions    --
+--                      --
+--------------------------
+
+isDegenerateSystem = method()
+isDegenerateSystem (List) := Boolean => A->(
+     --error handling
+    n := #A;
+    if not (all(A,M->numgens target M === n)) then (
+	error "isDegenerateSystem: Expected a square system"
+        );
+    if not (systemRank(A) === n) then (
+        return(true)
+        );
+
+    latGens := A/(M->sub(latticeGens M,QQ));
+
+    sortedIndices := (sort apply(#A,i->{systemRank A#i,i}))/last;
+    for i from 0 to n-1 do (
+        I := take(sortedIndices,i+1);
+        k := last I;
+        sublatIndices := select(I,j->latGens#j % latGens#k == 0);
+        otherIndices := setDifference(I,sublatIndices);
+        partialSubsys := select(subsetsGr(otherIndices,rank latGens#k - #sublatIndices),S->systemRank((S|{k})/(i->A#i)) < #S + #sublatIndices);
+        if (#partialSubsys > 0) then (return(true))
+	);
+    
+    return(false)
+    )
+
+minimalSubsystem = method()
+minimalSubsystem (List) := List => A->(
+    --error handling
+    n := #A;
+    if not (all(A,M->numgens target M === n)) then (
+	error "minimalSubsystem: Expected matrices with same codomain"
+	);
+    if not (systemRank(A) === n) then (
+	error "minimalSubsystem: Expected a nondegenerate system"
+	);
+    
+    latGens := A/(M->sub(latticeGens M,QQ));
+    
+    --This is a bit cryptic.
+    sortedIndices := (sort apply(#A,i->{systemRank A#i,i}))/last;
+    minSub := {};
+    for i from 0 to n-1 do (
+	I := take(sortedIndices,i+1);
+	k := last I;
+	sublatIndices := select(I,j->latGens#j % latGens#k == 0);
+	otherIndices := setDifference(I,sublatIndices);
+	partialSubsys := select(subsetsGr(otherIndices,rank latGens#k - #sublatIndices),S->systemRank((S|{k})/(i->A#i)) === #S + #sublatIndices);
+	if (#partialSubsys > 0) then break (minSub = (first partialSubsys)|sublatIndices)
+	);
+
+    return(sort minSub)
+    )
+
+triangularReduction = method()
+triangularReduction (List,List) := Sequence => (A,C)->(
+    --error handling
+    n := numgens target A#0;
+    if not (#A === #C and apply(A,M->numgens source M) === apply(C,c->#c) and all(A,M->numgens target M === n)) then (
+        error "subsystemReduction: Inconsistent number of equations, monomials, or coefficients"
+        );
+    
+    I := minimalSubsystem A;
+    (D,P,Q) := smithNormalForm latticeGens A_I;
+    
+    L := unique(I|toList(0 .. n-1));
+    B := A/(M->P*(latticeGens M));
+    subsysSupp := B_I/(M->M^(toList(0 .. #I-1)));
+    return(P,(B_L,C_L),(subsysSupp,C_I))
+    )
+
+latticeIndex = method()
+latticeIndex (List) := ZZ => A->(
+    --error handling
+    n := numgens target A#0;
+    if not (all(A,M->numgens target M === n)) then (
+	error "latticeIndex: Expected matrices with same codomain"
+	);
+    
+    M := latticeGens(A);
+    if not (rank M === numgens target A#0) then (
+	error "latticeIndex: Lattice not of full rank"
+	);
+    
+    D := first smithNormalForm M;
+    return(product(numgens target M,i->D_i_i))
+    )
+
+latticeReduction = method()
+latticeReduction (List) := Sequence => A->(
+    --error handling
+    n := numgens target A#0;
+    if not (all(A,M->numgens target M === n)) then (
+        error "subsystemReduction: Expected matrices with same codomain"
+        );
+
+    M := latticeGens(A);
+    if not (rank M === numgens target A#0) then (
+        error "subsystemReduction: Lattice not of full rank"
+        );
+
+    (D,P,Q) := smithNormalForm M;
+    phi := (inverse P)*D_(toList(0 .. n-1));
+    reducedSupports := apply(A,B->solve(phi,latticeGens B));
+    return(phi,reducedSupports)
+    )
+
+solveDecomposableSystem = method(Options=>{VerbosityLevel=>0,LacunarySys=>true,TriangularSys=>true,CheckMixedVolume=>false,NAGSolver=>PHCPACK,Tol=>.00001,Record=>"",Level=>0,CalledFrom=>"Start"})
+solveDecomposableSystem (List,List) := List => o->(A,C)->(
+    n := numgens target A#0;
+    if not (all(A,M->numgens target M === n) and #A === n and #C === n) then (
+	error "solveDecomposableSystem: Expected a square system"
+	);
+	
+	Recorder:="";
+	if o.Record != "" then (
+		Recorder=openOutAppend (currentDirectory()|o.Record);		
+		indenter:="";
+		if o.Level>0 then(
+			indenter=(concatenate for i from 1 to o.Level list "    ");			
+			);
+		if o.CalledFrom=="Start" then(
+			Recorder<<"Start:"<<endl;
+			Recorder<<A<<endl;
+			Recorder<<indenter;
+			Recorder<<C<<endl;
+			Recorder<<indenter;
+			Recorder<<o<<endl;
+			);
+		if o.CalledFrom=="NoLattice" then(
+			Recorder<<indenter<<"The above system has no lattice index"<<endl;
+			);
+		if o.CalledFrom=="NoSubsystem" then(
+			Recorder<<indenter<<"The above system has no subsystem"<<endl;
+			);
+		if o.CalledFrom=="Lattice" then(
+			Recorder<<(concatenate for i from 1 to o.Level list "****")<<"Lattice Index"<<endl;
+			Recorder<<indenter<<A<<endl;
+			Recorder<<indenter;
+			Recorder<<C<<endl;
+			Recorder<<indenter;
+			Recorder<<o<<endl;
+			);
+		if o.CalledFrom=="Subsystem" then(
+			Recorder<<(concatenate for i from 1 to o.Level list "****")<<"Subsystem"<<endl;
+			Recorder<<indenter<<A<<endl;
+			Recorder<<indenter;
+			Recorder<<C<<endl;
+			Recorder<<indenter;
+			Recorder<<o<<endl;
+			);
+		if o.CalledFrom=="Fibre" then(
+			Recorder<<(concatenate for i from 1 to o.Level list "****")<<"Single Fibre of Subsystem"<<endl;
+			Recorder<<indenter<<A<<endl;
+			Recorder<<indenter;
+			Recorder<<C<<endl;
+			Recorder<<indenter;
+			Recorder<<o<<endl;
+			);
+		Recorder<<close;
+		);
+
+    
+    if (o.LacunarySys === true) then (
+	if (latticeIndex A > 1) then (
+	    (phi,A') := latticeReduction A;
+	    lacBottomFib := solveDecomposableSystem(A',C,o ++ {LacunarySys=>false,CalledFrom=>"Lattice", Level=>o.Level+1});
+	    lacSolns := flatten (lacBottomFib/(z->solveBinomials(phi,z)));
+	    return(lacSolns)
+	    ) else (
+	    return(solveDecomposableSystem(A,C,o ++ {LacunarySys=>false,CalledFrom=>"NoLattice",Level=>o.Level}))
+	    )
+	);
+    
+    if (o.TriangularSys === true) then (
+	r := #(minimalSubsystem A);
+	if (r < n) then (
+	    (P,F,S) := triangularReduction(A,C);
+	    B := first F;
+	    C = last F;
+	    triBottomFib := solveDecomposableSystem(S,o ++ {LacunarySys=>true,CalledFrom=>"Subsystem",TriangularSys=>false,Level=>o.Level+1});
+	    s := first triBottomFib;
+	    B' := apply(toList(r .. n-1),i->(B#i)^(toList(r .. n-1)));
+	    C' := apply(toList(r .. n-1),i->apply(C#i, matrixPower(s,(B#i)^(toList(0 .. r-1))),(c,m)->c*m));
+	    firstTopFib := solveDecomposableSystem(B',C',o ++ {LacunarySys=>true,CalledFrom=>"Fibre",Level=>o.Level+1});
+
+	    triPartSolns := homotopyToFibres(generateSystem(B,C),triBottomFib,firstTopFib);
+	    triSolns := triPartSolns/(s->matrixPower(s,P));
+	    return(triSolns)
+	    ) else (
+	    return(solveDecomposableSystem(A,C,o ++ {TriangularSys=>false,CalledFrom=>"NoSubsystem",Level=>o.Level}))
+	    )
+	);
+    
+    if (o.LacunarySys === false and o.TriangularSys === false) then (
+		solns := basicSolver(A,C,Level=>o.Level, Record=>o.Record, VerbosityLevel=>o.VerbosityLevel,NAGSolver=>o.NAGSolver,Tol=>o.Tol,CheckMixedVolume=>o.CheckMixedVolume);
+		return(solns)
+		)
+    )
+
+solveDecomposableSystem (List) := List => o->F->(
+    S := systemData F;
+    return(solveDecomposableSystem(S,o))
+    )
+
+solveInstance = method(Options=>{VerbosityLevel=>0,NAGSolver=>PHCPACK,CheckMixedVolume=>false,Tol=>.00001,Record=>""})
+solveInstance (List) := List => o->A->(
+    n := numgens target A#0;
+    if not (all(A,M->numgens target M === n) and #A === n) then (
+	error "solveDecomposableSystem: Expected a square system"
+        );
+
+    C := apply(A,M->apply(numgens source M,i->random(CC)-random(CC)));
+    F := generateSystem(A,C);
+    Solns := solveDecomposableSystem(A,C,o);
+    return({F,Solns})
+    )
+
+
+
+
+-------------------------
+--                     --
+--    Documentation    --
+--                     --
+-------------------------
+
+beginDocumentation()
+
+--document some options?
+undocumented{Tol,CheckMixedVolume,VerbosityLevel,NAGSolver,LacunarySys,TriangularSys,Record,Level,CalledFrom}
+
+doc ///
+    Key 
+    	DecomposableSparseSystems
+    Headline
+    	Solving decomposable sparse polynomial systems
+    Description
+    	Text
+	    There are two natural ways a sparse polynomial system can
+	    be decomposed in the sense of []. The methods in this package detect and
+	    compute these decompositions and use them to numerically solve sparse polynomial systems.
+	    
+///
+
+--document{
+--    Key=>"DecomposableSparseSystems",
+--    Headline=>"Solving decomposable sparse polynomial systems",
+--    "There are two natural ways a sparse polynomial system can be decomposed in the sense of []. The methods in this package detect and compute these decompositions and use them to numerically solve sparse polynomial systems."
+--    }
+
+
+doc ///	    
+    Key 
+    	minimalSubsystem
+	(minimalSubsystem,List)
+    Headline
+    	Searches for subsystems.
+    Usage
+    	minimalSubsystem A
+    Inputs
+    	A : List
+	    a collection of matrices whose columns support a system of (Laurent) polynomial equations
+    Outputs
+    	: List
+	    a list of indices indicating which equations form a minimal subsystem
+    Description
+    	Text
+	    A sparse polynomial system has a subsystem if there is a monomial change of variables
+	    for which a subset of $k$ of the equations only involve the first $k$ variables. This
+	    method checks whether a polynomial system of support $A$ has a subsystem and returns
+	    which the indices of the equations that form a subsystem of minimal size.
+	Text
+	    The system $F(x,y) = (x^2+y^2-5,y^3+3y-2) = 0$ has the subsystem $y^3+3y-1$ as illustrated
+	    from the following computation.
+	Example
+	    R = CC[x,y];
+	    F = {x^2+y^2-5,y^3+3*y-2};
+	    (A,C) = systemData F
+	    minimalSubsystem A
+	Text
+	    If there's no proper subsystem, minimalSubsystem returns the entire system. For example, the system $F = (x+y-1,x^2-2y^2+2)=0$ has no subsystem.
+	Example
+	    R = CC[x,y];
+	    F = {x+y-1,x^2-2*y^2+2};
+	    (A,C) = systemData F
+	    minimalSubsystem A
+	Text
+	    The system $F(x,y,z) = (2xy-y^{-1}z + 3xz, x^2 - 2yz^{-1} + 1, 4x^2yz - xz + 3) = 0$ has a subsystem, though it is hidden by a monomial
+	    change of coordinates.
+	Example
+	    A = {matrix{{1,0,1},{1,-1,0},{0,1,1}},matrix{{2,0,0},{0,1,0},{0,-1,0}},matrix{{2,1,0},{1,0,0},{1,1,0}}}
+	    minimalSubsystem A
+	Text
+	    To compute the actual change of variables needed to see the subsystem, the command subsystemReduction should be used.
+    SeeAlso
+        triangularReduction
+	
+///
+
+doc ///
+    Key	   
+    	triangularReduction
+    	(triangularReduction,List,List)
+    Headline
+    	Computes the decomposition corresponding to a minimal subsystem.
+    Usage
+    	triangularReduction(A,C)
+    Inputs
+    	A : List
+	    a collection of matrices whose columns support a system of (Laurent) polynomial equations
+	C : List
+	    a collection of lists of whose entries are coefficients to a sparse polynomial system
+    Outputs
+    	(M,F',G) : Sequence
+	    In order, 
+	        1) A matrix representing a monomial change of variables that makes a subsystem apparent.
+	        2) A sequence of the support and coefficients of the original system after applying the monomial change of variables.
+	        3) A sequence of the support and coefficients of the subsystem after applying the monomial change of variables.
+    Description
+    	Text
+	    For a system of (Laurent) polynomial equations expressed as a sequence of supports and coefficients, (A,C),
+	    this method returns information needed to solve the system by means of first solving the subsystem. 
+	Example
+	    R = CC[x,y];
+	    F = {x^2-y+1,x^2*y^2+3*x*y+2};
+	    (A,C) = systemData F
+	    (M,F',G) = triangularReduction(A,C)
+	Text
+            Notice that applying the inverse of the monomial map to our new support gives our original support translated (and possibly in a different order).
+        Example
+            apply(first F',B->(inverse M)*B)
+            A
+	Text
+	    Further, the subsystem is apparent after this change of variables.
+	Example
+	    generateSystem F'
+	    generateSystem G
+    SeeAlso
+    	(minimalSubsystem,List)
+///
+
+doc ///
+    Key	   
+    	latticeIndex
+    	(latticeIndex,List)
+    Headline
+    	Computes the lattice index of the lattice span of the supports
+    Usage
+    	latticeIndex A
+    Inputs
+    	A : List
+	    a collection of matrices whose columns support a syste of (Laurent) polynomial equations
+    Outputs
+    	: ZZ
+	    the lattice index of the lattice span of the supports
+    Description
+    	Text
+	    For sparse (Laurent) polynomial systems whose support is represented by a list of integer matrices, (A_1,..,A_n), this 
+	    method returns the lattice index of the lattice generated by differences $\alpha-\beta$ for $\alpha,\beta\in$A_i for some $i\in{1,..,n}$.
+    	Example
+	    R = CC[x,y];
+	    F = {3*x^9*y^4+x^8*y^5+2*x,4*x^11*y^7+2*x^4*y^2+x^3*y^3-1};
+	    (A,C) = systemData F
+	    latticeIndex A
+	SeeAlso
+	    (latticeReduction,List)
+///
+
+doc ///
+    Key
+    	latticeReduction
+    	(latticeReduction,List)
+    Headline
+    	Computes a decomposition when the system is lacunary
+    Usage
+    	latticeReduction A
+    Inputs
+    	A : List
+	    a collection of matrices whose columns support a system of (Laurent) polynomial equations
+    Outputs
+    	(M,A') : Sequence
+	    In order,
+	    	1) A matrix representing a monomial map
+	    	2) The support of a (Laurent) polynomial system that when composed with the monomial map gives the support of the original system
+    Description
+    	Text
+	    For sparse (Laurent) polynomial systems whose support is represented by a list of integer matrices, A, this
+	    method returns a monomial map M and a new set of supports A' so that the original support A is given by the new support A' composed
+	    with the monomial map M.
+	Example
+	    R = CC[x,y];
+	    F = {3*x^9*y^4+x^8*y^5+2*x,4*x^11*y^7+2*x^4*y^2+x^3*y^3-1};
+    	    (A,C) = systemData F
+	    (M,A') = latticeReduction A
+	Text
+	    Notice that applying the monomial map to our new support gives our original support translated.
+	Example
+	    apply(A',B->M*B)
+	    A
+	Text
+	    The new support A' gives a new polynomial system with smaller exponents.
+	Example
+	    F' = generateSystem(A',C)
+	SeeAlso
+	    (latticeIndex,List)
+///
+
+doc ///
+    Key	   
+    	generateSystem
+    	(generateSystem,List,List)
+    Headline
+    	Generates a polynomial system from a list of support matrices and lists of coefficients
+    Usage
+    	generateSystem(A,C)
+    Inputs
+    	A : List
+	    a collection of matrices whose columns support a system of (Laurent) polynomial equations
+	C : List
+	    a list whose i-th entry is the list of coefficients for the i-th polynomial equation
+    Outputs
+    	F : List
+	    a list of polynomial equations with exponents from A and coefficients from C
+    Description
+    	Text
+	    A (Laurent) polynomial system represented by a list of integer supports and a list of coefficients, (A,C),
+	    this method constructs the polynomial equations. 
+	Example
+	    R = CC[x,y];
+	    F = {x^2-y+1,y^2+3*y+2};
+	    (A,C) = systemData F
+	    generateSystem (A,C)
+	SeeAlso
+	    (systemData,List)
+///
+
+doc ///
+    Key     
+    	systemData
+    	(systemData,List)
+    Headline
+    	Computes the list of support matrices corresponding to a list of polynomials and corresponding coefficients
+    Usage 
+        systemData F
+    Inputs
+    	F : List
+	    a list of polynomial equations
+    Outputs
+    	(A,C) : Sequence
+	    In order,
+	    	1) A list of integer matrices whose columns support each polynomial equation
+	    	2) A list of lists where the i-th list is the list of coefficients from the i-th equation
+    Description
+    	Text
+	    The supports of sparse (Laurent) polynomial equations determine much about the equations themselves. Given such a
+	    system, this method returns the list of integer supports for the equations and a list of coefficients corresponding 
+	    to each equation.
+	Example
+	    R = CC[x,y];
+            F = {x^2-y+1,y^2+3*y+2};
+            (A,C) = systemData F
+            generateSystem (A,C)
+
+///
+
+doc /// 
+    Key     
+    	solveInstance
+    	(solveInstance,List)
+    Headline
+    	Solves an instance of a sparse polynomial system
+    Usage
+    	solveInstance A
+    Inputs
+    	A : List
+	    a collection of matrices whose columns support a system of (Laurent) polynomial equations
+    Outputs
+    	(F,Solns) : List
+	    In order,
+	    	1) A list of polynomial systems supported on A
+	    	2) A list of solutions of F
+    Description
+    	Text
+	    Given a list of supports A, this method returns an instance of a polynomial system with
+	    support A (translated to the non-negative orthant if A has negative entries) and its solutions.
+	Example
+    	    A = {matrix{{0,0,1,2},{0,1,1,0}},matrix{{2,1,0},{2,1,0}}};
+	    solveInstance(A)
+	    
+	    
+///
+
+doc ///
+    Key     
+    	solveDecomposableSystem
+        (solveDecomposableSystem,List)
+	(solveDecomposableSystem,List,List)
+    Headline
+    	solves sparse (Laurent) polynomial systems via decomposability
+    Usage
+    	solveDecomposableSystem F
+    Inputs
+    	F : List
+	    a list of (Laurent) polynomial equations
+    Outputs
+    	: List
+	    a list of solutions to the polynomial equations
+    Description
+    	Text
+	    asdf
+	    
+///
+
+
+
+-----------------
+--             --
+--    Tests    --
+--             --
+-----------------
+
+
+
+
+end

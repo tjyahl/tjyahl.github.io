@@ -1,0 +1,61 @@
+--An example of using the package DecomposableSparseSystems.m2
+restart
+loadPackage("DecomposableSparseSystems",Reload=>true)
+
+--an example of a system with a (non-obvious) subsystem.
+R = CC[x,y,z];
+F = {x^2*y^3 - 5*x*y^2*z + 2*y*z^2 + z, x^2*y - y^2*z +z^2*x + 4, x*y + 3*y*z^2 - 2*z};
+
+--systemData F encodes the support and the coefficients of the equations of F into A and C respectively.
+------Note: This is necessary as many of our computations depend on integer linear algebra on the matrices in the list A. 
+------Many times we will write a system as a sequence (A,C) for this reason.
+------
+------Note: To recover F, use the command "generateSystem(A,C)".
+(A,C) = systemData F
+
+--minimalSubsystem A checks if polynomial systems of support A admit a subsystem. It returns a list indexing the equations which form a minimal subsystem.
+minimalSubsystem A
+
+--triangularReduction(A,C) provides a sequence of length three.
+------The first object is a matrix representing a monomial change of variables that makes the subsystem apparent.
+------The second object is the original system (A,C) after applying the monomial change of variables.
+------------Note: The subsystem appears as the first few equations and is now very apparent.
+------The third object is the subsystem of (A,C) after applying the monomial change of variables.
+triangularReduction(A,C)
+
+--solveDecomposableSystem(F) and solveDecomposableSystem(A,C) both solve the system.
+solveDecomposableSystem(F)
+solveDecomposableSystem(A,C)
+
+
+--an example of a system with lattice index.
+R = CC[x,y];
+F = {3*x^9*y^4 + x^8*y^5 + 2*x,4*x^11*y^7 + 2*x^4*y^2 + x^3*y^3 - 1};
+
+--as above, we represent the system by a sequence (A,C).
+(A,C) = systemData F
+
+--
+latticeIndex A
+
+--
+latticeReduction A
+
+--as above, solveDecomposableSystem(F) and solveDecomposableSystem(A,C) both solve the system.
+solveDecomposableSystem(F)
+solveDecomposableSystem(A,C)
+
+
+--Notes:
+--
+--1) solveDecomposableSystem(A,C) can be used to solve Laurent polynomial systems as well.
+--
+--2) The option 'Record=>"FILE"' can be used to explicitly write the steps of the algorithm to FILE.
+--
+--3) The default solver for systems that are not decomposable is PHCpack. The option 'NAGsolver=>..' can be used
+--------to select what solver the NumericalAlgebraicGeometry package will use to compute solutions.
+--
+--
+
+
+
