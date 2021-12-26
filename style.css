@@ -34,10 +34,10 @@ float:left;
 li a.navigation {
 display:inline-block;
 color:white;
-padding-top:16px;
-padding-bottom:16px;
-padding-left:16px;
-padding-right:16px;
+padding-top:1.5vw;
+padding-bottom:1.5vw;
+padding-left:1.5vw;
+padding-right:1.5vw;
 text-align:center; 
 text-decoration:none; 
 font-size:1.5vw;
@@ -85,7 +85,7 @@ font-weight:bold;
 
 hr.gold {
 width:device-width;
-height:50px;
+height:30px;
 background-color:rgba(220,175,55,1);
 border:none;
 position:relative;
