@@ -92,14 +92,6 @@ position:relative;
 top:-.4cm;
 }
 
-div.body {
-position:relative;
-display:inline-block;
-width:100%;
-min-height:10%;
-overflow:hidden;
-}
-
 div.about {
 width: 50%;
 display:inline-block;
@@ -163,10 +155,11 @@ font-size:5vw;
 }
 
 div.pagebody {
+padding-bottom:5%;
 float:left;
 display:inline-block;
 width:100%;
-min-height:50%;
+min-height:70%;
 overflow:hidden;
 margin:auto;
 }
