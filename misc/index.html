@@ -2,160 +2,73 @@
 <html lang="en">
 
 
-
 <!-- HEAD -->
 <head>
-
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Miscellaneous</title>
-<link rel="icon" href="../favicon.ico">
+<link rel="icon" href="../images/favicon.ico">
 
 <!-- CSS -->
-<style>
-html, body {
-margin:0; 
-height:100%;
-}
-
-div {
-border:0px solid red;
-}
-
-div.header {
-position:relative;
-width:device-width;
-height:auto;
-}
-
-img.header {
-width:100%;
-height:auto;
-}
-
-div.headercover {
-margin:0;
-height:100%;
-width:100%;
-position:absolute;
-top:0;
-left:0;
-background-color:rgba(0,0,0,.3);
-}
-
-ul.navigation {
-list-style-type:none; 
-margin:0; 
-padding:0; 
-padding-left:.5cm; 
-overflow:hidden; 
-background-color:rgba(0,0,0,.4);
-}
-
-li.navigation {
-float:left;
-}
-
-li a.navigation {
-display:block; 
-color:white; 
-text-align:center; 
-padding:16px; 
-text-decoration:none; 
-font-family:Verdana, Geneva, sans-serif;
-font-weight:bold;
-}
-
-li a.navigation:hover {
-background-color:rgba(0,0,0,.45);
-}
-
-hr.gold {
-width:device-width;
-height:6%;
-background-color:rgba(212,175,55,1);
-border:none;
-position:relative;
-top:-.4cm;
-}
-
-p.info {
-text-align:center;
-margin-top:10%;
-color:white;
-font-family:Verdana, Geneva, sans-serif;
-font-weight:bold;
-}
-
-img.cv {
-transform:scale(.75);
-border:1px solid #ddd;
-border-radius:4px;
-padding-left:15%;
-padding-right:15%;
-}
-
-img.cv:hover {
-box-shadow: 0 0 2px 1px rgba(0,0,0,.2);
-}
-
-</style>
-
+<link rel="stylesheet" href="../style.css">
 </head>
-
 
 
 <!-- BODY -->
 <body>
+
 <!-- HEADING -->
 <div class="header">
-  <img class="header" src="../hex.png">
-  <div class="headercover">
-    <ul class="navigation">
-      <li class="navigation"><a class="navigation" href="../index.html">Home</a></li>
-      <li class="navigation"><a class="navigation" href="../research/index.html">Research</a></li>
-      <li class="navigation"><a class="navigation" href="../teaching/index.html">Teaching</a></li>
-      <li class="navigation"><a class="navigation" href="index.html">Miscellaneous</a></li>
-    </ul>
-    <p class="info">
-      <font size="7">Miscellaneous</font>
+  <!-- NAVIGATION -->
+  <ul class="navigation">
+    <li class="navigation"><a class="navigation" href="../index.html">Home</a></li>
+    <li class="navigation"><a class="navigation" href="../research/index.html">Research</a></li>
+    <li class="navigation"><a class="navigation" href="../teaching/index.html">Teaching</a></li>
+    <li class="navigation"><a class="navigation" href="../misc/index.html">Miscellaneous</a></li>
+  </ul>
+
+  <div class="pagetitle">
+    <p class="pagetitle">
+      Miscellaneous
     </p>
   </div>
 </div>
-<hr class="gold">
+
 <!-- BODY -->
-<div style="display:inline-block">
-<p style="font-family:Verdana, Geneva, sans-serif; padding-left:2.5cm; padding-right:2.5cm; padding-top:.5cm; text-align:center">
-<font size="5">Presentations and Problem Sets</font>
-</p>
-<div style="float:left; width:33%;">
-<a href="SIAM_Galois_Talk.pdf">
-<img class="cv" src="SIAMTalk.png" style="padding-top:4.5cm;">
-</a>
-<p style="font-family:Verdana, Geneva, sans-serif; text-align:center;">
-SIAM talk on Decomposable Sparse Polynomial Systems
-</div>
-<div style="float:left; width:33%;">
-<a href="comAlgAM.pdf">
-<img class="cv" src="AMComAlg.png" style="padding-top:-1cm;">
-</a>
-<p style="font-family:Verdana, Geneva, sans-serif; text-align:center; padding-top:.15cm;">
-Selected problems from Atiyah & MacDonald's text "Introduction to Commutative Algebra"
-</p>
-</div>
-<div style="float:left; width:33%;">
-<a href="toricProj.pdf">
-<img class="cv" src="PolyHomTalk.png" style="padding-top:4.5cm;">
-</a>
-<p style="font-family:Verdana, Geneva, sans-serif; text-align:center;">
-A class presentation on the polyhedral homotopy
-</p>
-</div>
+<hr class="gold">
+
+<div class="pagebody">
+  <p class="pagebody">
+    Presentations and Problem Sets:
+  </p>
+  <div class="texsets">
+    <a class="texsets" href="SIAM_Galois_Talk.pdf">
+      <img class="texsets" src="SIAMTalk.png">
+    </a>
+    <p class="pagebody">
+      SIAM talk on Decomposable Sparse Polynomial Systems
+  </div>
+  <div class="texsets">
+    <a class="texsets" href="comAlgAM.pdf">
+      <img class="texsets" src="AMComAlg.png">
+    </a>
+    <p class="pagebody">
+      Selected problems from Atiyah & MacDonald's text "Introduction to Commutative Algebra"
+    </p>
+  </div>
+  <div class="texsets">
+    <a class="texsets" href="toricProj.pdf">
+      <img class="texsets" src="PolyHomTalk.png">
+    </a>
+    <p class="pagebody">
+      A class presentation on the polyhedral homotopy
+    </p>
+  </div>
 </div>
 
 <hr class="gold" style="top:.5cm">
 
 <!--
-<div>
+    <div>
 <p style="font-family:Verdana, Geneva, sans-serif; padding-left:2.5cm; padding-right:2.5cm; padding-top:1.5cm; text-align:center">
 <font size="5">Conferences and Travel</font>
 </p>
