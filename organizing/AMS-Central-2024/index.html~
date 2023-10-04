@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+
+<!-- HEAD -->
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=10.0, user-scalable=yes">
+<meta name="google-site-verification" content="SJazCLN04TMxUdp8QisON_-L8mOa1eJciyFRnKAQocg" />
+<title>Thomas Yahl</title>
+<link rel="icon" href="images/27lines.ico">
+
+<!-- CSS -->
+<link rel="stylesheet" href="style.css">
+</head>
+
+
+<!-- BODY -->
+<body>
+  <!--THE TABLE-->
+  <table>
+    <tr>
+      <td>
+	<!--HEADER-->
+	<table class="head">
+	  <thead>
+	    <tr>
+	      <td>
+		<!--NAVIGATION-->
+		<table class="navigation">
+		  <tbody>
+		    <tr>
+		      <td>
+		      <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		      <td class="head"><a class="navigation" href="index.html">About</a></td>
+		      <td class="head"><a class="navigation" href="research/index.html">Research</a></td>
+		      <td class="head"><a class="navigation" href="teaching/index.html">Teaching</a></td>
+		      <td class="head"><a class="navigation" href="misc/index.html">Miscellaneous</a></td>
+		      <td class="last">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		      </td>
+		    </tr>
+		  </tbody>
+		</table>
+	      </td>
+	    </tr>
+	    <tr>
+	      <td>
+		<!--INFO-->
+		<table>
+		  <tr>
+		    <td style="padding: 50px 80px 50px 80px"><img class="headshot" alt="Photo Missing!" src="images/headshot_cropped.jpg"></td>
+		    <td class="info">
+		      <p>
+			Thomas Yahl
+			<br>
+			<br>
+			Van Vleck Visiting Assistant Professor 
+			<br>
+			at University of Wisconsin -- Madison
+			<br>
+			<br>
+			Office: Van Vleck 707
+			<br>
+			<br>
+			Email: <a href="mailto:tyahl@wisc.edu" style="color:white">tyahl@wisc.edu</a>
+		      </p>
+		    </td>
+		    <td class="last">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+		  </tr>
+		</table>
+		<!--END INFO-->
+	      </td>
+	    </tr>
+	  </thead>
+	</table>
+	<!--END HEADER-->
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+	<!--BODY-->
+	<table>
+	  <tbody>
+	    <tr>
+	      <td>
+		<a id="about"><hr class="gold"></a>
+	      </td>
+	    </tr>
+
+	    <tr>
+	      <td style="padding-bottom:80px">
+		<!--ABOUT ME-->
+		<table>
+		  <tbody>
+		    <tr>
+		      <td class="about">
+			<p style="font-style:bold; font-size:20pt; margin:0; width:450px; padding-left:180px; padding-bottom:20px">
+			  <u>About</u>
+			</p>
+			<p style="margin:0; width:450px; padding-left:200px; text-align:left">
+			  I'm a postdoc at in the department of mathematics at University of Wisconsin -- Madison interested in applied and computational algebraic geometry. 
+			</p>
+		      </td>
+		    </tr>
+		  </tbody>
+		</table>
+		<table>
+		  <tbody>
+		    <tr>
+		      <td style="padding: 30px 50px 30px 100px; text-align:center">
+			<a href="researchStatement.pdf"><img class="cv" alt="Photo Missing!" src="images/researchStatement.png"></a>
+			<a href="researchStatement.pdf">Research Statement</a>
+		      </td>
+		      <td style="padding: 30px 50px 30px 30px; text-align:center">
+			<a href="teachingStatement.pdf"><img class="cv" alt="Photo Missing!" src="images/researchStatement.png"></a>
+			<a href="teachingStatement.pdf">Teaching Statement</a>
+		      </td>
+		      <td style="padding: 30px 100px 30px 50px; text-align:center">
+			<a href="CV.pdf"><img class="cv" alt="Photo Missing!" src="images/CV.png"></a>
+			<a href="CV.pdf">CV</a>
+		      </td>
+		      <td class="last"> </td>
+		    </tr>
+		  </tbody>
+		</table>
+	      </td>
+	    </tr>
+	  </tbody>
+	</table>
+      </td>
+    </tr>
+  </table>
+  <!--END THE TABLE-->
+
+
+</body>
