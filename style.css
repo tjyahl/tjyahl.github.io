@@ -106,6 +106,7 @@ a.navigation {
 color:white;
 text-decoration:none; 
 font-weight:bold;
+white-space:nowrap;
 }
 
 td.head:hover {
