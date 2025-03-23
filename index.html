@@ -10,7 +10,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=10.0, user-scalable=yes">
     <title>Thomas Yahl Homepage</title>
-    <link rel"icon" href="">
+    <link rel="icon" href="images/27lines.ico">
 
     <!--CSS-->
     <link rel="stylesheet" href="style.css">
@@ -23,8 +23,93 @@
 
   <!--BODY-->
   <body>
+
+    <!--NAVIGATION-->
+    <div class="nav-bar">
+
+      <a class="nav-button" href="#profile">
+	Profile
+      </a>
+      
+      <a class="nav-button" href="#research" onclick="handleClick(1)">
+	Research
+      </a>
+      <div id="research-dropdown" class="dropdown-content">
+	<a href="#research-overview">Overview</a>
+	<a href="#research-publications">Publications</a>
+	<a href="#research-talks">Talks</a>
+      </div>
+      
+      <a class="nav-button" href="#teaching" onclick="handleClick(2)">
+	Teaching
+      </a>
+      <div id="teaching-dropdown" class="dropdown-content">
+	<a href="#teaching-overview">Overview</a>
+	<a href="#teaching-UWM">UWM Teaching <br>Duties</a>
+	<a href="#teaching-TAMU">TAMU Teaching <br>Duties</a>
+      </div>
+      
+      <a class="nav-button" href="#projects" onclick="handleClick(3)">
+	Projects
+      </a>
+      <div id="projects-dropdown" class="dropdown-content">
+	<a href="#projects-realroots">Real Geometry <br>in M2</a>
+	<a href="#projects-cox">Cox Homotopies <br>in julia</a>
+	<a href="#projects-TAMIDS">TAMIDS Data <br>Science Comp.</a>
+	<a href="#projects-sparse">Decomposable Systems in M2</a>
+      </div>
+      
+      <a class="nav-button" href="#misc">
+	Miscellaneous
+      </a>
+    </div>
     
     
+    <!--PAGE CONTENTS-->
+    <div class="content">
+      <div class="header" data-parallax="scroll" data-image-src="/images/hex.png">
+	<div style="display:inline-block; width:30%">
+	  <img class="headshow" alt="Photo Missing!" src="images/headshot_cropped.jpg">
+	</div>
+
+	<div style="display:inline-block; width:60%">
+	<h2>Thomas Yahl</h2>
+	<h3>Van Vleck Visiting Assistant Professor at University of Wisconsin - Madison</h3>
+	<h4>Office: Van Vleck 707</h4>
+	<h4>Email: tyahl@wisc.edu</h4>
+	</div>
+      </div>
+
+      <div class="profile">
+	<h2 id="profile" class="section"><u>Profile</u></h2>
+      </div>
+
+      <div class="research">
+	<h2 id="research" class="section"><u>Research</u></h2>
+	<h3 id="research-overview">Overview</h3>
+	<h3 id="research-publications">Publications</h3>
+	<h3 id="research-talks">Talks</h3>
+      </div>
+
+      <div class="teaching">
+	<h2 id="teaching" class="section"><u>Teaching</u></h2>
+	<h3 id="teaching-overview">Overview</h3>
+	<h3 id="teaching-UWM">University of Wisconsin - Madison Teaching Duties</h3>
+	<h3 id="teaching-TAMU">Texas A&M University Teaching Duties</h3>
+      </div>
+
+      <div class="projects">
+	<h2 id="projects" class="section"><u>Projects</u></h2>
+	<h3 id="projects-realroots">Real Geometry in Macaulay2</h3>
+	<h3 id="projects-cox">Cox Homotopies in julia</h3>
+	<h3 id="projects-TAMIDS">TAMIDS Data Science Competition</h3>
+	<h3 id="projects-sparse">Solving Decomposable Systems in Macaulay2</h3>
+      </div>
+
+      <div class="misc">
+	<h2 id="misc" class="section"><u>Miscellaneous</u></h2>
+      </div>
+    </div>
     
   </body>
 </html>
