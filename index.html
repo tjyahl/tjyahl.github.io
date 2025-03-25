@@ -16,8 +16,8 @@
     <link rel="stylesheet" href="style.css">
 
     <!--JS-->
-    <script src="jquery-3.7.1.min.js"></script>
-    <script src="index.js"></script>
+    <script src="src/jquery-3.7.1.min.js"></script>
+    <script src="src/parallax.min.js"></script>
   </head>
 
 
@@ -26,89 +26,191 @@
 
     <!--NAVIGATION-->
     <div class="nav-bar">
+      
+      <div class="nav-button-container">
+      <a class="nav-button" href="#">Home</a>
+      </div>
+      
+      <div class="nav-button-container">
+	<a class="nav-button" href="#research">Research</a>
+	<div id="research-dropdown" class="dropdown-content">
+	  <a href="#research" class="subnav-button">Overview</a>
+	  <a href="#research-publications" class="subnav-button">Publications</a>
+	  <a href="#research-talks" class="subnav-button">Talks</a>
+	</div>
+      </div>
+      
+      <div class="nav-button-container">
+	<a class="nav-button" href="#teaching">Teaching</a>
+	<div id="teaching-dropdown" class="dropdown-content">
+	  <a href="#teaching" class="subnav-button">Overview</a>
+	  <a href="#teaching-UWM" class="subnav-button">UWM Teaching Duties</a>
+	  <a href="#teaching-TAMU" class="subnav-button">TAMU Teaching Duties</a>
+	</div>
+      </div>
+      
+      <div class="nav-button-container">
+	<a class="nav-button" href="#projects">Projects</a>
+	<div id="projects-dropdown" class="dropdown-content">
+	  <a href="#projects-realroots" class="subnav-button">Real Geometry in M2</a>
+	  <a href="#projects-cox" class="subnav-button">Cox Homotopies in julia</a>
+	  <a href="#projects-TAMIDS" class="subnav-button">TAMIDS Data Science Comp.</a>
+	  <a href="#projects-sparse" class="subnav-button">Decomposable Systems in M2</a>
+	</div>
+      </div>
 
-      <a class="nav-button" href="#profile">
-	Profile
-      </a>
-      
-      <a class="nav-button" href="#research" onclick="handleClick(1)">
-	Research
-      </a>
-      <div id="research-dropdown" class="dropdown-content">
-	<a href="#research-overview">Overview</a>
-	<a href="#research-publications">Publications</a>
-	<a href="#research-talks">Talks</a>
+      <div class="nav-button-container">
+	<a class="nav-button" href="#misc">Miscellaneous</a>
       </div>
-      
-      <a class="nav-button" href="#teaching" onclick="handleClick(2)">
-	Teaching
-      </a>
-      <div id="teaching-dropdown" class="dropdown-content">
-	<a href="#teaching-overview">Overview</a>
-	<a href="#teaching-UWM">UWM Teaching <br>Duties</a>
-	<a href="#teaching-TAMU">TAMU Teaching <br>Duties</a>
-      </div>
-      
-      <a class="nav-button" href="#projects" onclick="handleClick(3)">
-	Projects
-      </a>
-      <div id="projects-dropdown" class="dropdown-content">
-	<a href="#projects-realroots">Real Geometry <br>in M2</a>
-	<a href="#projects-cox">Cox Homotopies <br>in julia</a>
-	<a href="#projects-TAMIDS">TAMIDS Data <br>Science Comp.</a>
-	<a href="#projects-sparse">Decomposable Systems in M2</a>
-      </div>
-      
-      <a class="nav-button" href="#misc">
-	Miscellaneous
-      </a>
     </div>
     
     
-    <!--PAGE CONTENTS-->
-    <div class="content">
-      <div class="header" data-parallax="scroll" data-image-src="/images/hex.png">
-	<div style="display:inline-block; width:30%">
-	  <img class="headshow" alt="Photo Missing!" src="images/headshot_cropped.jpg">
-	</div>
 
-	<div style="display:inline-block; width:60%">
+    <!--PAGE CONTENTS-->
+    <div id="header" class="header">
+      <div style="display:inline-block; width:auto">
+	<img class="headshot" alt="Photo Missing!" src="images/headshot_cropped.jpg">
+      </div>
+      
+      <div style="display:inline-block; width:600px; text-align:center">
 	<h2>Thomas Yahl</h2>
-	<h3>Van Vleck Visiting Assistant Professor at University of Wisconsin - Madison</h3>
+	<h3>Van Vleck Visiting Assistant Professor <br> at University of Wisconsin - Madison</h3>
 	<h4>Office: Van Vleck 707</h4>
 	<h4>Email: tyahl@wisc.edu</h4>
-	</div>
+	<h4><a style="color:white" href="https://www.linkedin.com/in/thomas-yahl-1288791ab/">Linkedin</a> | <a href="https://github.com/tjyahl" style="color:white">Github</a></h4>
       </div>
+    </div>
+    
+    <div class="bar"></div>
 
-      <div class="profile">
-	<h2 id="profile" class="section"><u>Profile</u></h2>
-      </div>
+    <div class="content">
+      <h2 class="section"><u>Profile</u></h2>
+      <h3>Overview</h3>
+      <p>
+	I'm a Van Vleck Visiting Assistant Professor in the Department of Mathematics at University of Wisconsin - Madison, .
+      </p>
 
-      <div class="research">
-	<h2 id="research" class="section"><u>Research</u></h2>
-	<h3 id="research-overview">Overview</h3>
-	<h3 id="research-publications">Publications</h3>
-	<h3 id="research-talks">Talks</h3>
-      </div>
+      <h3>Education</h3>
+      <ul>
+	<li>Texas A&M University, Ph.D. Mathematics, GPA=3.89, Completed: 2023</li>
+	<ul>
+	  <li>Advisor: <a href="https://franksottile.github.io/">Dr. Frank Sottile</a></li>
+	  <li>Thesis: <a href="https://oaktrust.library.tamu.edu/items/c092b574-2452-4703-8909-cb193d8b3b84"><em>"Computational Aspects of Galois Groups in Enumerative Geometry"</em></a></li>
+	</ul>
+	<li>Indiana University - Purdue University - Indianapolis, B.S. (Honors) Mathematics, Minor Computer Science, GPA=3.68, Completed: 2017</li>
+      </ul>
+    </div>
+    
+    <a class="anchor" id="research"></a>
+    <div class="content">
+      <h2 class="section"><u>Research</u></h2>
+      <h3>Overview</h3>
+      <p>
+	 Much of my research focus lies in applied and computational algebraic geometry. In particular, some of my mathematical interests include numerical algebraic geometry, algebraic optimization, real algebraic geometry, numerical certification methods, and their applications.
+      </p>
+      
+      <a id="research-publications" class="anchor"></a>
+      <h3 >Publications</h3>
+      <h4>Preprints (reverse-chronological):</h4>
+      <ul>
+	<li><em>"Galois Groups of Purely Lacunary Polynomial Systems"</em>, Yahl, Thomas. In preparation.</li>
+	<li><em>"Activation Degree Thresholds and Expresiveness of Polynomial Neural Networks"</em>, Finkel, Bella; Rodriguez, Jose Israel; Yahl, Thomas; Wu, Chenxi, <a href="https://arxiv.org/abs/2408.04569">arXiv:2408.04569</a>. Submitted.</li>
+	<li><em>"Galois Groups in Enumerative Geometry and Applications"</em>, Sottile, Frank; Yahl, Thomas, <a href="https://arxiv.org/abs/2108.07905">arXiv:2108.07905</a>. Submitted.</li> 
+      </ul>
+      <h4>Publications (reverse-chronological):</h4>
+      <ul>
+	<li><em>"Completions to Discrete Probability Distributions in Log-Linear Models"</em>, Cai, May; Oleson Recke, Cecilie; Yahl, Thomas, <a href="https://msp.org/astat/2024/15-2/p04.xhtml">Algebraic Statistics 15 (2024), no. 2, 225-247</a>.</li>
+	<li><em>"Computing Galois Groups of Finite Fano Problems"</em>, Yahl, Thomas, <a href="https://doi.org/10.1016/j.jsc.2023.02.004">Journal of Symbolic Computation 119 (2023), 81-89</a>.</li>
+	<li><em>"Real Solutions to Systems of Polynomial Equations in Macaulay2"</em>, Lopez Garcia, Jordy; Maluccio, Kelly; Sottile, Frank; Yahl, Thomas, <a href="https://msp.org/jsag/2024/14-1/p10.xhtml">Journal of Software for Algebra and Geometry Vol. 14 (2024), 87-95</a>.</li>
+	<li><em>"Polyhedral Homotopies in Cox Coordinates"</em>, Duff, Tim; Telen, Simon; Walker, Elise; Yahl, Thomas, <a href="https://doi.org/10.1142/S0219498824500737">Journal of Algebra and its Applications Vol. 23, No. 04, 2450073 (2024)</a>.</li>
+	<li><em>"Decomposable Sparse Polynomial Systems"</em>,Brysiewicz, Taylor; Rodriguez, Jose Israel; Sottile, Frank; Yahl, Thomas, <a href="https://msp.org/jsag/2021/11-1/jsag-v11-n1-p06-s.pdf">Journal of Software for Algebra and Geometry Vol. 11 (2021), 53-59</a>.</li>
+	<li><em>"Solving Decomposable Sparse Systems"</em>,Brysiewicz, Taylor; Rodriguez, Jose Israel; Sottile, Frank; Yahl, Thomas, <a href="https://link.springer.com/content/pdf/10.1007/s11075-020-01045-x.pdf">Numerical Algorithms 88 (2021), 453-474</a>.</li>
+      </ul>
+      
+      <a id="research-talks" class="anchor"></a>
+      <h3 >Talks</h3>
+      <h4>Selected Research Talks</h4>
+      <ul>
+	<li><em>"Activation Thresholds and Expressiveness of Polynomial Neural Networks"</em> <a href="data/JMM_2025.pdf">(Slides)</a>, JMM 2025.</li>
+	<li><em>"Galois Groups of Purely Lacunary Polynomial Systems"</em> <a href="data/sparseGalois.pdf">(Slides)</a>, Banff International Research Station Workshop: Computational Geometry.</li>
+	<ul>
+	  <li><a href="https://www.birs.ca/events/2024/5-day-workshops/24w5229/videos/watch/202406270901-Yahl.html">Video Recording</a></li>
+	</ul>
+	<li><em>"The Unbalanced Procrusted Problem and Algebraic Optimization"</em> <a href="data/UWM_AA_S24.pdf">(Slides)</a>, University of Wisconsin - Madison Applied Algebra Seminar.</li>
+	<li><em>"Computing Galois Groups of Fano Problems"</em> <a href="data/JMM_2023.pdf">(Slides)</a>, Joint Mathematics Meetings 2023.</li>
+	<li><em>"Solving Decomposable Sparse Polynomial Systems"</em> <a href="data/GT_2022.pdf">(Slides)</a>, Georgia Tech Algebra Seminar.</li>
+	<li><em>"Parameter Homotopies in Cox Coordinates"</em> <a href="data/JMM_2021.pdf">(Slides)</a>, Joint Mathematics Meetings 2021.</li>
+      </ul>
+    </div>
+    
+    <a class="anchor" id="teaching"></a>
+    <div class="content">
+      <h2 class="section"><u>Teaching</u></h2>
+      <h3>Overview</h3>
+      <p>
+	In the classroom I provide an atmosphere conducive to learning mathematics by alleviating any fear of mathematics hindering students from their success and by creating content accessible to those coming from areas other than mathematics. This approach to teaching has produced many happy and successful students, whose evaluations are available upon request for appropriate parties. 
+      </p>
 
-      <div class="teaching">
-	<h2 id="teaching" class="section"><u>Teaching</u></h2>
-	<h3 id="teaching-overview">Overview</h3>
-	<h3 id="teaching-UWM">University of Wisconsin - Madison Teaching Duties</h3>
-	<h3 id="teaching-TAMU">Texas A&M University Teaching Duties</h3>
-      </div>
+      <a id="teaching-UWM" class="anchor"></a>
+      <h3 >University of Wisconsin - Madison Teaching Duties</h3>
+      <ul>
+	<li>Spring 2025, Math 863:001 "Topics in Algebraic Geometry: Toric Varieties"</li>
+	<li>Fall 2024, Math 551:002 "Elementary Topology"</li>
+	<li>Fall 2024, Math 213:001 "Calculus and Introduction to Differential Equations"</li>
+	<li>Spring 2024, Math 213:001 "Calculus and Introduction to Differential Equations"</li>
+	<li>Fall 2023, Math 320:002-003 "Linear Algebra and Differential Equations"</li>
+      </ul>
 
-      <div class="projects">
-	<h2 id="projects" class="section"><u>Projects</u></h2>
-	<h3 id="projects-realroots">Real Geometry in Macaulay2</h3>
-	<h3 id="projects-cox">Cox Homotopies in julia</h3>
-	<h3 id="projects-TAMIDS">TAMIDS Data Science Competition</h3>
-	<h3 id="projects-sparse">Solving Decomposable Systems in Macaulay2</h3>
-      </div>
+      <a id="teaching-TAMU" class="anchor"></a>
+      <h3 >Texas A&M University Teaching Duties</h3>
+      <ul>
+	<li>Summer 2022, "Algebra Qualifying Exam Prep Course"</li>
+	<li>Fall 2021, Math 168 "Finite Mathematics"</li>
+	<li>Summer 2021, "Algebra Qualifying Exam Prep Course"</li>
+	<li>Summer 2020, Math 142 "Business Calculus"</li>
+      </ul>
+      <h4>Texas A&M University Teaching Assistant Duties</h4>
+      <ul>
+	<li>Spring 2021, Math 152 "Calculus II for Engineering"</li>
+	<li>Fall 2020, Math 151 "Calculus I for Engineering"</li>
+	<li>Fall 2019, Math 148 "Calculus II for Chemistry and Biological Sciences"</li>
+	<li>Spring 2019, Math 152 "Calculus II for Engineering"</li>
+	<li>Fall 2018, Math 148 "Calculus II for Chemistry and Biological Sciences"</li>
+      </ul>
+    </div>
+    
+    <a class="anchor" id="projects"></a>
+    <div class="content">
+      <h2 class="section"><u>Projects</u></h2>
+      
+      <a id="projects-realroots" class="anchor"></a>
+      <h3>Real Geometry in Macaulay2</h3>
+      <p>
+	asdf
+      </p>
 
-      <div class="misc">
-	<h2 id="misc" class="section"><u>Miscellaneous</u></h2>
-      </div>
+      <a id="projects-cox" class="anchor"></a>
+      <h3>Cox Homotopies in julia</h3>
+      <p>
+	asdf
+      </p>
+
+      <a id="projects-TAMIDS" class="anchor"></a>
+      <h3>TAMIDS Data Science Competition</h3>
+      <p>
+	asdf
+      </p>
+
+      <a id="projects-sparse" class="anchor"></a>
+      <h3>Solving Decomposable Systems in Macaulay2</h3>
+      <p>
+	asdf
+      </p>
+    </div>
+    
+    <a id="misc" class="anchor"></a>
+    <div class="content">
+      <h2 class="section"><u>Miscellaneous</u></h2>
     </div>
     
   </body>
