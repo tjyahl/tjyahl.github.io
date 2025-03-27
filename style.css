@@ -48,7 +48,7 @@ div.dropdown-content {
     position: absolute;
     display: none;
     background-color: rgba(63,68,67);
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 0px 20px 12px rgba(0,0,0,0.2);
 }
 
 a.subnav-button {
@@ -71,9 +71,14 @@ div.header {
     background: url("images/hex.png");
     background-size: cover;
     text-align:center;
-    padding: 100px 0px 44px 0px;
+    padding: 100px 0px 65px 0px;
     color: white;
     overflow:hidden;
+}
+
+img.headshot {
+    width: 300px;
+    border-radius: 20px;
 }
 
 div.bar {
@@ -86,17 +91,21 @@ div.content {
     padding: 0px 10% 0px 10%;
 }
 
+img.pdfimg {
+    width: 200px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+img.pdfimg:hover {
+    box-shadow: 0px 0px 20px 12px rgba(0,0,0,0.2);
+}
+
 a.anchor {
     display: block;
     position: relative;
     top:-80px;
     visibility:hidden;
-}
-
-img.headshot {
-    width: 300px;
-    height: 272px;
-    border-radius: 20px;
 }
 
 h2.section {
@@ -105,4 +114,34 @@ h2.section {
 
 li {
     padding: 0px 0px 20px 0px;
+}
+
+div.dropdown-review {
+    display: none;
+    padding-bottom: 20px;
+}
+
+img.lines {
+    display:inline-block; 
+    width:350px;
+    border-radius:12px;
+}
+
+img.lines:hover {
+    box-shadow: 0px 0px 20px 12px rgba(0,0,0,0.2);
+}
+
+img.staticImg {
+    display:inline-block; 
+    width: auto;
+}
+
+img.vosViewer {
+    width:600px; 
+    height:auto; 
+    border-radius:12px;
+}
+
+img.vosViewer:hover {
+    box-shadow: 0px 0px 20px 12px rgba(0,0,0,0.2);
 }

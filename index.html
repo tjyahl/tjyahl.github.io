@@ -14,10 +14,10 @@
 
     <!--CSS-->
     <link rel="stylesheet" href="style.css">
-
+    
     <!--JS-->
-    <script src="src/jquery-3.7.1.min.js"></script>
-    <script src="src/parallax.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="index.js"></script>
   </head>
 
 
@@ -35,8 +35,8 @@
 	<a class="nav-button" href="#research">Research</a>
 	<div id="research-dropdown" class="dropdown-content">
 	  <a href="#research" class="subnav-button">Overview</a>
-	  <a href="#research-publications" class="subnav-button">Publications</a>
-	  <a href="#research-talks" class="subnav-button">Talks</a>
+	  <a href="#research-publications" class="subnav-button">Publications and Software</a>
+	  <a href="#research-talks" class="subnav-button">Selected Talks</a>
 	</div>
       </div>
       
@@ -50,11 +50,11 @@
       </div>
       
       <div class="nav-button-container">
-	<a class="nav-button" href="#projects">Projects</a>
+	<a class="nav-button" href="#projects">Projects & Software</a>
 	<div id="projects-dropdown" class="dropdown-content">
 	  <a href="#projects-realroots" class="subnav-button">Real Geometry in M2</a>
 	  <a href="#projects-cox" class="subnav-button">Cox Homotopies in julia</a>
-	  <a href="#projects-TAMIDS" class="subnav-button">TAMIDS Data Science Comp.</a>
+<!--	  <a href="#projects-TAMIDS" class="subnav-button">TAMIDS Data Science Comp.</a>-->
 	  <a href="#projects-sparse" class="subnav-button">Decomposable Systems in M2</a>
 	</div>
       </div>
@@ -68,29 +68,57 @@
 
     <!--PAGE CONTENTS-->
     <div id="header" class="header">
-      <div style="display:inline-block; width:auto">
-	<img class="headshot" alt="Photo Missing!" src="images/headshot_cropped.jpg">
+      <div style="display:inline-block; padding-top:30px">
+	<img class="headshot" alt="Photo Missing!" src="images/CanadaHeadshot.jpg">
       </div>
       
       <div style="display:inline-block; width:600px; text-align:center">
 	<h2>Thomas Yahl</h2>
 	<h3>Van Vleck Visiting Assistant Professor <br> at University of Wisconsin - Madison</h3>
-	<h4>Office: Van Vleck 707</h4>
-	<h4>Email: tyahl@wisc.edu</h4>
-	<h4><a style="color:white" href="https://www.linkedin.com/in/thomas-yahl-1288791ab/">Linkedin</a> | <a href="https://github.com/tjyahl" style="color:white">Github</a></h4>
+	<p style="margin: 0">
+	  <b>Office: Van Vleck 707
+	  <br>
+	  <br>
+	  Email: tyahl@wisc.edu
+	  <br>
+	  <br>
+	  <a style="color:white" href="https://www.linkedin.com/in/thomas-yahl-1288791ab/">Linkedin</a> | <a href="https://github.com/tjyahl" style="color:white">Github</a></b>
+	</p>
+	<br>
       </div>
     </div>
     
     <div class="bar"></div>
-
+    <br>
     <div class="content">
       <h2 class="section"><u>Profile</u></h2>
-      <h3>Overview</h3>
+      <h3><u>Overview</u></h3>
       <p>
-	I'm a Van Vleck Visiting Assistant Professor in the Department of Mathematics at University of Wisconsin - Madison, .
+	I'm a Van Vleck Visiting Assistant Professor at University of Wisconsin - Madison with expertise in applied and computational algebraic geometry and their applications to machine learning and statistics. I have a passion for excellence in meeting my team's goals by developing creative and original solutions to problems, and effectively communicating those solutions. 
       </p>
+      
+      <div style="width: 100%; text-align:center">
+	<div style="display:inline-block; width:40%; text-align:center">
+	  <a href="data/Resume_Yahl.pdf">
+	    <img class="pdfimg" src="images/resume.png" alt="Image not found!">
+	  </a>
+	  <br>
+	  <a href="data/Resume_Yahl.pdf">
+	    Resume
+	  </a>
+	</div>
+	<div style="display:inline-block; width:40%; text-align:center">
+	  <a href="data/CV_Yahl.pdf">
+	    <img class="pdfimg" src="images/cv.png" alt="Image not found!">
+	  </a>
+	  <br>
+	  <a href="data/CV_Yahl.pdf">
+	    CV
+	  </a>
+	</div>
+      </div>
 
-      <h3>Education</h3>
+      <h3><u>Education</u></h3>
       <ul>
 	<li>Texas A&M University, Ph.D. Mathematics, GPA=3.89, Completed: 2023</li>
 	<ul>
@@ -99,37 +127,79 @@
 	</ul>
 	<li>Indiana University - Purdue University - Indianapolis, B.S. (Honors) Mathematics, Minor Computer Science, GPA=3.68, Completed: 2017</li>
       </ul>
+
+      <h3><u>Organizational Work</u></h3>
+      <ul>
+	<li><a href="https://macaulay2.github.io/Workshop-2025-Madison/">Macaulay2 Workshop: Madison 2025</a> (Upcoming! June 30 - July 4, 2025)</li>
+	<li><a href="https://wiki.math.wisc.edu/index.php/Applied_Algebra_Seminar_Spring_2025">Applied Algebra Seminar at University of Wisconsin - Madison</a></li>
+	<li><a href="https://tjyahl.github.io/organizing/ICMS-2024/index.html"><em>"Symbolic-Numeric Methods in Algebraic Geometry"</em></a> Session at <a href="https://maths.dur.ac.uk/icms2024/ICMS2024.html">ICMS 2024</a></li>
+	<li><a href="https://tjyahl.github.io/organizing/AMS-Central-2024/index.html"><em>"Applications of Algebra and Geometry"</em></a> Special Session at <a href="https://www.ams.org/meetings/sectional/2318_program.html">AMS Spring Central Sectional Meeting 2024</a></li>
+	<li><a href="https://www.math.uh.edu/siamtxla22/resources/booklet.pdf"><em>"Applications and Computation in Algebraic Geometry"</em></a> Mini-Symposium at <a href="https://www.math.uh.edu/siamtxla22/">SIAM TX-LA Sectional Meeting 2022</a></li>
+      </ul>
     </div>
     
     <a class="anchor" id="research"></a>
     <div class="content">
       <h2 class="section"><u>Research</u></h2>
-      <h3>Overview</h3>
+      <h3><u>Overview</u></h3>
       <p>
-	 Much of my research focus lies in applied and computational algebraic geometry. In particular, some of my mathematical interests include numerical algebraic geometry, algebraic optimization, real algebraic geometry, numerical certification methods, and their applications.
+	My research focus lies in numerical and computational algebraic geometry and their applications to areas such as to machine learning and statistics. More specifically, some of my mathematical interests include, in no particular order:
+      </p>
+      <div style="display:inline-block; width: 32%">
+	<ul style="margin-top: 10px">
+	  <li>Numerical Homotopy Methods</li>
+	  <li>Algebraic Statistics</li>
+	</ul>
+      </div>
+      <div style="display:inline-block; width: 32%">
+	<ul style="margin-top: 10px">
+	  <li>Numerical Certification Methods</li>
+	  <li>Algebraic Optimization</li>
+	</ul>
+	
+      </div>
+      <div style="display:inline-block; width: 32%">
+	<ul style="margin-top: 10px">
+	  <li>Galois Theory in Enumerative Geometry</li>
+	  <li>Real Algebraic Geometry</li>
+	</ul>
+      </div>
+      <p style="margin-top: 0px">
+	Much of my research is accompanied by technical open-source software which is freely available to use and is hosted on my <a href="https://github.com/tjyahl">Github</a> and/or official sources as provided in <a href="#research-publications">Publications and Software</a> below. These software implementations vary widely in the scope of their audience and application, from black-box solvers for general polynomial systems to more technical software for the purpose of research experimentation and proof. See <a href="#projects">Projects</a> below for details on selected examples.
       </p>
       
       <a id="research-publications" class="anchor"></a>
-      <h3 >Publications</h3>
+      <h3><u>Publications and Software</u></h3>
       <h4>Preprints (reverse-chronological):</h4>
       <ul>
 	<li><em>"Galois Groups of Purely Lacunary Polynomial Systems"</em>, Yahl, Thomas. In preparation.</li>
 	<li><em>"Activation Degree Thresholds and Expresiveness of Polynomial Neural Networks"</em>, Finkel, Bella; Rodriguez, Jose Israel; Yahl, Thomas; Wu, Chenxi, <a href="https://arxiv.org/abs/2408.04569">arXiv:2408.04569</a>. Submitted.</li>
 	<li><em>"Galois Groups in Enumerative Geometry and Applications"</em>, Sottile, Frank; Yahl, Thomas, <a href="https://arxiv.org/abs/2108.07905">arXiv:2108.07905</a>. Submitted.</li> 
       </ul>
-      <h4>Publications (reverse-chronological):</h4>
+      <h4>Publications and Software (reverse-chronological):</h4>
       <ul>
 	<li><em>"Completions to Discrete Probability Distributions in Log-Linear Models"</em>, Cai, May; Oleson Recke, Cecilie; Yahl, Thomas, <a href="https://msp.org/astat/2024/15-2/p04.xhtml">Algebraic Statistics 15 (2024), no. 2, 225-247</a>.</li>
 	<li><em>"Computing Galois Groups of Finite Fano Problems"</em>, Yahl, Thomas, <a href="https://doi.org/10.1016/j.jsc.2023.02.004">Journal of Symbolic Computation 119 (2023), 81-89</a>.</li>
+	<ul>
+	  <li><a href="https://github.com/tjyahl/FanoGaloisGroups">FanoGaloisGroups Github Repository</a></li>
+	</ul>
 	<li><em>"Real Solutions to Systems of Polynomial Equations in Macaulay2"</em>, Lopez Garcia, Jordy; Maluccio, Kelly; Sottile, Frank; Yahl, Thomas, <a href="https://msp.org/jsag/2024/14-1/p10.xhtml">Journal of Software for Algebra and Geometry Vol. 14 (2024), 87-95</a>.</li>
+	<ul>
+	  <li><a href="https://macaulay2.com/doc/Macaulay2/share/doc/Macaulay2/RealRoots/html/index.html">RealRoots.m2 Macaulay2 Page</a></li>
+	</ul>
 	<li><em>"Polyhedral Homotopies in Cox Coordinates"</em>, Duff, Tim; Telen, Simon; Walker, Elise; Yahl, Thomas, <a href="https://doi.org/10.1142/S0219498824500737">Journal of Algebra and its Applications Vol. 23, No. 04, 2450073 (2024)</a>.</li>
+	<ul>
+	  <li><a href="https://mathrepo.mis.mpg.de/CoxHomotopies/">CoxHomotopy.jl MathRepo Page</a></li>
+	</ul>
 	<li><em>"Decomposable Sparse Polynomial Systems"</em>,Brysiewicz, Taylor; Rodriguez, Jose Israel; Sottile, Frank; Yahl, Thomas, <a href="https://msp.org/jsag/2021/11-1/jsag-v11-n1-p06-s.pdf">Journal of Software for Algebra and Geometry Vol. 11 (2021), 53-59</a>.</li>
+	<ul>
+	  <li><a href="https://macaulay2.com/doc/Macaulay2/share/doc/Macaulay2/DecomposableSparseSystems/html/index.html">DecomposableSparseSystems.m2 Macaulay2 Page</a></li>
+	</ul>
 	<li><em>"Solving Decomposable Sparse Systems"</em>,Brysiewicz, Taylor; Rodriguez, Jose Israel; Sottile, Frank; Yahl, Thomas, <a href="https://link.springer.com/content/pdf/10.1007/s11075-020-01045-x.pdf">Numerical Algorithms 88 (2021), 453-474</a>.</li>
       </ul>
       
       <a id="research-talks" class="anchor"></a>
-      <h3 >Talks</h3>
-      <h4>Selected Research Talks</h4>
+      <h3><u>Selected Conference/Seminar Talks</u></h3>
       <ul>
 	<li><em>"Activation Thresholds and Expressiveness of Polynomial Neural Networks"</em> <a href="data/JMM_2025.pdf">(Slides)</a>, JMM 2025.</li>
 	<li><em>"Galois Groups of Purely Lacunary Polynomial Systems"</em> <a href="data/sparseGalois.pdf">(Slides)</a>, Banff International Research Station Workshop: Computational Geometry.</li>
@@ -146,13 +216,31 @@
     <a class="anchor" id="teaching"></a>
     <div class="content">
       <h2 class="section"><u>Teaching</u></h2>
-      <h3>Overview</h3>
+      <h3><u>Overview</u></h3>
       <p>
-	In the classroom I provide an atmosphere conducive to learning mathematics by alleviating any fear of mathematics hindering students from their success and by creating content accessible to those coming from areas other than mathematics. This approach to teaching has produced many happy and successful students, whose evaluations are available upon request for appropriate parties. 
+	My teaching philosophy is that students prosper in an environment that allows them to confidently learn and apply mathematics, without fear of failure or ridicule. In my various roles as mathematics tutor, TA, and instructor, I've taught a wide range of topics from lower-level undergraduate courses through graduate level topics courses. In each of these settings, I've found success by actively engaging with students and allowing them to explore and understand the material in their own way. Several past students have voiced their appreciation for my style of teaching through course evaluations and by reaching out personally. Classroom evaluations from students are available on request from appropriate parties, below are selected comments from these evaluations:
+      </p>
+      <ul>
+	<li><a style="cursor:pointer" onclick="dropdownReview(1)"><u>Open Comment 1</u></a></li>
+	<div id="review1" class="dropdown-review">
+	  "Having a class with Professor Yahl has truly been an honor. He is a phenomenal professor and a very genuine person. Not only does he show up to class eager to teach the content with a smile on his face, but he does so in a way that makes attending class something that I look forward to each day. He is easy to talk to, and is willing to help anyone out if they have any questions about the content. He is one of, if not THE, best professor I have ever had, and he has inspired me to continue pursuing an education in mathematics. Thank you for a great semester!" - Math 320 Student at UW-Madison
+	</div>
+	<li><a style="cursor:pointer" onclick="dropdownReview(2)"><u>Open Comment 2</u></a></li>
+	<div id="review2" class="dropdown-review">
+	  "He was very calm and the way he taught the material was very refreshing. Compared to other math professors I have had at UW Madison, Thomas has by far been the best professor I have had. He was very knowledgeable of all of the material, and always responded to questions with a thoughtful answer that cleared up any confusion. I also went to his office hours many times, and he could always explain concepts to me very well and could see where I went wrong. He is very nice and cares about his students a substantial amount." - Math 213 Student at UW-Madison
+	</div>
+	<li><a style="cursor:pointer" onclick="dropdownReview(3)"><u>Open Comment 3</u></a></li>
+	<div id="review3" class="dropdown-review">
+	  "Professor Yahl taught this class very thoroughly and communicated complicated concepts at a level which was very considerate of his students. He allocated appropriate amounts of time for the more complex ideas in the course while also ensuring that students understood the basics and groundwork necessary for success in the class. I would gladly take his class again." - Math 213 Student at UW-Madison
+	</div>
+      </ul>
+      <p>
+	As a direct result of my approach to teaching, I've been awarded the Postdoctoral Excellence in Teaching Award from the Department of Mathematics at University of Wisconsin - Madison and the Outstanding TA Award from Texas A&M University. 
       </p>
 
+
       <a id="teaching-UWM" class="anchor"></a>
-      <h3 >University of Wisconsin - Madison Teaching Duties</h3>
+      <h3><u>University of Wisconsin - Madison Teaching Duties</u></h3>
       <ul>
 	<li>Spring 2025, Math 863:001 "Topics in Algebraic Geometry: Toric Varieties"</li>
 	<li>Fall 2024, Math 551:002 "Elementary Topology"</li>
@@ -162,7 +250,7 @@
       </ul>
 
       <a id="teaching-TAMU" class="anchor"></a>
-      <h3 >Texas A&M University Teaching Duties</h3>
+      <h3><u>Texas A&M University Teaching Duties</u></h3>
       <ul>
 	<li>Summer 2022, "Algebra Qualifying Exam Prep Course"</li>
 	<li>Fall 2021, Math 168 "Finite Mathematics"</li>
@@ -181,37 +269,112 @@
     
     <a class="anchor" id="projects"></a>
     <div class="content">
-      <h2 class="section"><u>Projects</u></h2>
+      <h2 class="section"><u>Selected Projects</u></h2>
       
       <a id="projects-realroots" class="anchor"></a>
-      <h3>Real Geometry in Macaulay2</h3>
+      <h3><u>Real Geometry in Macaulay2</u></h3>
       <p>
-	asdf
+	This project led to the development of the <a href="https://macaulay2.com/doc/Macaulay2/share/doc/Macaulay2/RealRoots/html/index.html">RealRoots.m2</a> Macaulay2 package. This package implements several symbolic methods from real algebraic geometry including:
       </p>
+	<ul>
+	  <li>Variational methods for enumerating the number of real solutions to a system of polynomial equations, such as the Budan-Fourier Theorem, Sturm's Theorem, and Sylvester's Theorem.</li>
+	  <li>Ideal theoretic methods for enumerating the number of real solutions to a system of polynomial equations via regular representations and the trace form.</li>
+	  <li>Isolation methods for estimating the real zeros of a univariate polynomial via a bisection algorithm.
+	</ul>
+      <p>
+	This work also resulted in an improved statement and proof of Sylvester's theorem, which allows one to compute information about the real zeros of a polynomial system more accurately. The article <a href="https://msp.org/jsag/2024/14-1/jsag-v14-n1-p10-s.pdf#10TITLEPAGE"><em>"Real Solutions to Systems of Polynomial Equations in Macaulay2"</em></a> provides a complete description of the implemented methods and mathematical content.
+	<br>
+	<br>
+	We illustrate the utility of this package via an example. It is well known that a smooth cubic surface in <b>complex</b> projective 3-space contains 27 distinct lines, that lie entirely on the surface. However, a smooth cubic surfaces in <b>real</b> projective 3-space can contain only 3, 7, 15, or 27 lines. By describing these lines as solutions of a polynomial system, the RealRoots.m2 package can be used to determine this number of lines for a given cubic surface. 
+	<br>
+	<br>
+	The illustration below is of the cubic surface defined by the equation
+      </p>
+      <p style="text-align:center">
+	<sup>58313</sup>/<sub>630</sub> x<sup>3</sup> + <sup>13351</sup>/<sub>1260</sub> x<sup>2</sup>y - <sup>2645</sup>/<sub>84</sub> xy<sup>2</sup> + <sup>1997</sup>/<sub>180</sub> y<sup>3</sup> + <sup>1869</sup>/<sub>20</sub> x<sup>2</sup>z + <sup>769</sup>/<sub>105</sub> xyz - <sup>323</sup>/<sub>90</sub> y<sup>2</sup>z - <sup>27</sup>/<sub>20</sub> xz<sup>2</sup> - <sup>4751</sup>/<sub>90</sub> yz<sup>2</sup> + <sup>12053</sup>/<sub>630</sub> z<sup>3</sup> + <sup>1073</sup>/<sub>120</sub> x<sup>2</sup> - <sup>883</sup>/<sub>120</sub> xy - <sup>977</sup>/<sub>252</sub> y<sup>2</sup> - <sup>8737</sup>/<sub>504</sub> xz + <sup>2171</sup>/<sub>360</sub> yz + <sup>541</sup>/<sub>8</sub> z<sup>2</sup> + <sup>1079</sup>/<sub>210</sub> x - <sup>30977</sup>/<sub>1260</sub> y - <sup>36767</sup>/<sub>630</sub> z - <sup>6953</sup>/<sub>1260</sub> = 0.
+      </p>
+      <p>
+	At a glance, it is unclear how many lies lie on this cubic surface. Using RealRoots.m2, it can be proven that the cubic surface below contains the maximum number, 27 lines. These lines are illustrated on the surface below in red. Please click on the figure below for an interactive view of the surface and all 27 lines.
+      </p>
+      
+      <div style="display:block; text-align:center; padding-bottom:20px">
+	<a class="27lines" href="images/27lines.html"><img class="lines" src="images/27lines.png" alt="Image not found!"></a>
+	<br>
+	<div style="display:inline-block; text-align:left; width:450px; font-size:14pt">
+	  Figure 1: A smooth cubic surface containing 27 distinct lines. <a href="images/27lines.html">Interactive viewer</a>.
+	</div>
+      </div>
 
       <a id="projects-cox" class="anchor"></a>
-      <h3>Cox Homotopies in julia</h3>
+      <h3><u>Cox Homotopies in julia</u></h3>
       <p>
-	asdf
+	The julia software package <a href="https://mathrepo.mis.mpg.de/CoxHomotopies/">CoxHomotopies.jl</a> implements numerical homotopy algorithms described in the research article <a href="https://msp.org/jsag/2024/14-1/jsag-v14-n1-p10-s.pdf#10TITLEPAGE"><em>"Polyhedral Homotopies in Cox Coordinates"</em></a>. We briefly describe numerical homotopy algorithms in general, and the methods contained in this software package.
+	<br>
+	<br>
+	A numerical homotopy algorithm utilizes a <em>start system</em> whose solutions are known or easier to compute to compute solutions of other systems. To compute solutions of a given <em>target system</em>, <em>F</em>, a <em>homotopy</em> is constructed, which can be considered as a path between the start system <em>G</em> and the target system <em>F</em>. A numerical homotopy algorithm <em>tracks</em> the solutions of the start system along the homotopy, to obtain solutions of the target system. In the illustration below, the start system <em>G</em> has 3 solutions that get tracked to 2 solutions of the system <em>F</em>.
+      </p>
+      <div style="display:block; text-align:center; padding-bottom:20px">
+	<img class="staticImg" src="images/homotopyImage.png" alt="Image not found!">
+	<br>
+	<div style="display:inline-block; text-align:left; width:450px; font-size:14pt">
+	  Figure 2: An illustration of a homotopy between a start system <em>G</em> and a target system <em>F</em>.
+	</div>
+      </div>
+      <p>
+	Note that in the illustration above, the red curve seems to diverge--it does not provide a solution to the target system <em>F</em>. Alternatively, the red curve could end at a solution of the target system <em>F</em> which is very large in magnitude. In either case, accurately tracking along the red path is computationally expensive and potentially leads to inaccurate or unnecessary information. 
+	<br>
+	<br>
+	The main method of CoxHomotopies.jl provides a numerical homotopy algorithm for solving polynomial systems. Loosely, this algorithm ensures no paths diverge as in the illustration above. This is achieved through a toric compactification of the solution space--solutions are tracked in a quasi-affine space which provides coordinates for the toric compactification via the Cox quotient construction of a complete normal toric variety. 
+      </p>
+      <div style="display:block; text-align:center; padding-bottom:20px">
+	<img class="staticImg" style="width: auto" src="images/conditionNumberGraph.png" alt="Image not found!">
+	<div style="text-align:left; margin:0px 60px 0px 60px; font-size:14pt">
+	  Figure 3: The graphs above illustrate the condition number of the Jacobian matrix during the tracking of 3 solutions in a particular numerical experiment. In each graph, the dotted lines represent a random choice of hyperparameters, the dashed red line represents the average condition number for these random choices, and the blue line represents the achieved condition number through the use of the Cox homotopy algorithm. 
+	</div>
+      </div>
+      <p>
+	This algorithm has the additional benefit that extra hyperparameters are introduced during tracking. Numerical experiments detailed in <a href="https://msp.org/jsag/2024/14-1/jsag-v14-n1-p10-s.pdf#10TITLEPAGE"><em>"Polyhedral Homotopies in Cox Coordinates"</em></a> illustrate that these parameters may be chosen in a consistent way as to decrease the condition number of the Jacobian of the system while tracking. This is expressed by the figures above.
       </p>
 
-      <a id="projects-TAMIDS" class="anchor"></a>
-      <h3>TAMIDS Data Science Competition</h3>
+<!--      <a id="projects-TAMIDS" class="anchor"></a>
+      <h3><u>TAMIDS Data Science Competition</u></h3>
       <p>
-	asdf
+	asdf <a href="https://github.com/tjyahl/TAMIDSBeanQueens">Github Repository</a>
       </p>
-
+      <div style="display:block; text-align:center; padding-bottom:20px">
+	<a href="https://app.vosviewer.com/?json=https://www.dropbox.com/s/az3vmucpzyffr2t/VOSviewer_4778188541815183668.json?dl=1&simple_ui=true&item_color=2&score_colors=Rainbow&dark_ui=true">
+	  <img class="vosViewer" src="images/TAMIDSCompImage.png" alt="Image not found!">
+	</a>
+      </div>-->
+	
       <a id="projects-sparse" class="anchor"></a>
-      <h3>Solving Decomposable Systems in Macaulay2</h3>
+      <h3><u>Solving Decomposable Systems in Macaulay2</u></h3>
       <p>
-	asdf
+	The Macaulay2 package <a href="https://macaulay2.com/doc/Macaulay2/share/doc/Macaulay2/DecomposableSparseSystems/html/index.html">DecomposableSparseSystems.m2</a> implements methods of decomposing sparse polynomial systems into simpler systems. The article <a href="https://msp.org/jsag/2021/11-1/jsag-v11-n1-p06-s.pdf"><em>"Decomposable Sparse Polynomial Systems"</em></a> details the methods contained in this package, and the <em>Journal of Software for Algebra and Geometry</em> has peer-reviewed the code and documentation in addition to this article.
+	<br>
+	<br>
+	Whether or not a sparse polynomial system decomposes can be determined by its Galois group, as described in the research article <a href="https://link.springer.com/content/pdf/10.1007/s11075-020-01045-x.pdf"><em>"Solving Decomposable Sparse Systems"</em></a>. While the Galois group may be difficult to determine, theoretical tools for understanding the Galois group provide a classification of those systems which decompose. Those sparse polynomial systems that decompose are those <em>lacunary</em> systems and <em>triangular</em> systems. 
       </p>
+      <ul>
+	<li>A lacunary system generalizes equations such as x<sup>6</sup> + 3x<sup>3</sup> + 2 = 0, which may be considered equations in a new variable. If y = x<sup>3</sup>, we may write this equation as the system y<sup>2</sup> + 3y + 2 = 0, x<sup>2</sup> - y = 0.</li>
+	<li>A triangular system generalizes triangular linear systems of equations such as 2x + y = 3, 3y = 6, in which a subset of the variables can be solved for independently of the others.</li>
+      </ul>
+      <p>
+	The main method of DecomposableSparseSystems.m2 iteratively decomposes systems until no further decomposition is possible. This is provided as overhead for a black-box solver, which solves the resulting decomposed systems, and the method recombines solutions into solutions of the original system. The figure below shows the results of a computational experiment comparing the timing of using the black-box solver <a href="https://homepages.math.uic.edu/~jan/PHCpack/phcpack.html">PHCPack</a> agains the main method of DecomposableSparseSystems.m2, in the precense of decomposable systems. 
+      </p>
+      <div style="display:block; text-align:center; padding-bottom:20px">
+	<img src="images/scatter2.png" alt="Image not found!" style="width:600px; height:auto">
+	<div style="display:inline-block; text-align:left; width:650px; font-size:14pt">
+	  Figure 4: The timings of PHCPack and DecomposableSparseSystems.m2 in solving over 10,000 instances of decomposable sparse polynomial systems with up to 5,000 solutions.
+	</div>
+      </div>
     </div>
     
-    <a id="misc" class="anchor"></a>
+<!--    <a id="misc" class="anchor"></a>
     <div class="content">
       <h2 class="section"><u>Miscellaneous</u></h2>
     </div>
+-->
     
   </body>
 </html>
